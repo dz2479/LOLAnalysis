@@ -1,6 +1,6 @@
 --- 
-title: "YOUR TITLE HERE"
-author: "YOUR NAMES HERE"
+title: "LOLAnalysis"
+author: "Daoxing Zhang & Siqi He"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 ---
