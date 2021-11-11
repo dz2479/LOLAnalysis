@@ -5,7 +5,7 @@ In this final project, we would like to perform an exploratory data analysis on 
 2. How do players’ performance contribute to teams’ win rate? In LOL, there are five lines: top, mid, ADC, support and jungle. We will analyze if there is a correlation between players strength and teams’ win rate, and we will also analyze which lines are more important to a win. 
 3. How important are resources to a win? There are different types of resources in a game including towers, dragons, and Baron Nashor. Each resource serves different effects. We want to analyze teams’ efficiency of controlling resources and using resources, and how that efficiency contribute to a win.
 
-## Link: 
+## Link
 https://dz2479.github.io/LOLAnalysis/conclusion.html
 
 This repo was initially generated from a bookdown template available here: https://github.com/jtr13/EDAVtemplate.
