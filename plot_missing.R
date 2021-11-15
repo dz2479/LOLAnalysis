@@ -7,6 +7,7 @@ plot_missing <- function(data,percent,mode){
   
   data1= colSums(is.na(data)) %>%
   sort(decreasing = TRUE)
+  
   x=names(data1)
   y=data1
   data1 = as.data.frame(cbind(x,y))

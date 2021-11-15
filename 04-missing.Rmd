@@ -43,8 +43,10 @@ Here are explanations of the column variables:
 ## Missing
 
 ```{r}
+library(tidyverse)
+library(patchwork)
 source("plot_missing.R")
-plot_missing(avengers, percent = TRUE, mode = 4)
+plot_missing(avengers, percent = FALSE, mode = 4)
 ```
 
 
