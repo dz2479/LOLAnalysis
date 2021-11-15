@@ -24,7 +24,7 @@
 <meta name="author" content="Daoxing Zhang &amp; Siqi He" />
 
 
-<meta name="date" content="2021-11-11" />
+<meta name="date" content="2021-11-15" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -76,7 +76,12 @@
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
 <li class="chapter" data-level="2" data-path="data-sources.html"><a href="data-sources.html"><i class="fa fa-check"></i><b>2</b> Data sources</a></li>
 <li class="chapter" data-level="3" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>3</b> Data transformation</a></li>
-<li class="chapter" data-level="4" data-path="missing-values.html"><a href="missing-values.html"><i class="fa fa-check"></i><b>4</b> Missing values</a></li>
+<li class="chapter" data-level="4" data-path="missing-values.html"><a href="missing-values.html"><i class="fa fa-check"></i><b>4</b> Missing values</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="missing-values.html"><a href="missing-values.html#description"><i class="fa fa-check"></i><b>4.1</b> Description</a></li>
+<li class="chapter" data-level="4.2" data-path="missing-values.html"><a href="missing-values.html#data-resource"><i class="fa fa-check"></i><b>4.2</b> Data Resource</a></li>
+<li class="chapter" data-level="4.3" data-path="missing-values.html"><a href="missing-values.html#missing"><i class="fa fa-check"></i><b>4.3</b> Missing</a></li>
+</ul></li>
 <li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a></li>
 <li class="chapter" data-level="6" data-path="interactive-component.html"><a href="interactive-component.html"><i class="fa fa-check"></i><b>6</b> Interactive component</a></li>
 <li class="chapter" data-level="7" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>7</b> Conclusion</a></li>
@@ -101,7 +106,53 @@
             <section class="normal" id="section-">
 <div id="missing-values" class="section level1" number="4">
 <h1><span class="header-section-number">Chapter 4</span> Missing values</h1>
+<div id="description" class="section level2" number="4.1">
+<h2><span class="header-section-number">4.1</span> Description</h2>
+<p>For the purpose of Problem Set 4, we will use the “avengers” data set in the “fivethirtyeight” package to analyze some missing values and their patterns. We have two reasons for choosing this data set:</p>
+<ul>
+<li>First, our datasets do not have any missing values, and you can check out here: <a href="https://data.pentaq.com/TeamStats?tour=82" class="uri">https://data.pentaq.com/TeamStats?tour=82</a>.</li>
+<li>Second, we are big fans of Marvel Studio so we are passionate to analyze information about avengers. By looking through descriptions of this data set, we can measure mortality rates of 173 current and former avengers.</li>
+</ul>
+</div>
+<div id="data-resource" class="section level2" number="4.2">
+<h2><span class="header-section-number">4.2</span> Data Resource</h2>
+<p>Let’s first take a glance at the data set.</p>
+<pre><code>##  [1] &quot;url&quot;                         &quot;name_alias&quot;                  &quot;appearances&quot;                
+##  [4] &quot;current&quot;                     &quot;gender&quot;                      &quot;probationary_intro&quot;         
+##  [7] &quot;full_reserve_avengers_intro&quot; &quot;year&quot;                        &quot;years_since_joining&quot;        
+## [10] &quot;honorary&quot;                    &quot;death1&quot;                      &quot;return1&quot;                    
+## [13] &quot;death2&quot;                      &quot;return2&quot;                     &quot;death3&quot;                     
+## [16] &quot;return3&quot;                     &quot;death4&quot;                      &quot;return4&quot;                    
+## [19] &quot;death5&quot;                      &quot;return5&quot;                     &quot;notes&quot;</code></pre>
+<p>Here are explanations of the column variables:</p>
+<ul>
+<li>url: The URL of the comic character on the Marvel Wikia</li>
+<li>name_alias: The full name or alias of the character</li>
+<li>appearances:The number of comic books that character appeared in as of April 30</li>
+<li>current: Is the member currently active on an avengers affiliated team?</li>
+<li>gender: The recorded gender of the character</li>
+<li>probationary_intro: Sometimes the character was given probationary status as an Avenger, this is the date that happened</li>
+<li>full_reserve_avengers_intro: The month and year the character was introduced as a full or reserve member of the Avengers</li>
+<li>year: The year the character was introduced as a full or reserve member of the Avengers</li>
+<li>years_since_joining: 2015 minus the year</li>
+<li>honorary: The status of the avenger, if they were given “Honorary” Avenger status, if they are simply in the “Academy,” or “Full” otherwise</li>
+<li>death1: TRUE if the Avenger died, FALSE if not.</li>
+<li>return1: TRUE if the Avenger returned from their first death, FALSE if they did not, blank if not applicable</li>
+<li>death2: TRUE if the Avenger died a second time after their revival, FALSE if they did not, blank if not applicable</li>
+<li>return2: TRUE if the Avenger returned from their second death, FALSE if they did not, blank if not applicable</li>
+<li>death3: TRUE if the Avenger died a third time after their second revival, FALSE if they did not, blank if not applicable</li>
+<li>return3: TRUE if the Avenger returned from their third death, FALSE if they did not, blank if not applicable</li>
+<li>death4: TRUE if the Avenger died a fourth time after their third revival, FALSE if they did not, blank if not applicable</li>
+<li>return4: TRUE if the Avenger returned from their fourth death, FALSE if they did not, blank if not applicable</li>
+<li>death5: TRUE if the Avenger died a fifth time after their fourth revival, FALSE if they did not, blank if not applicable</li>
+<li>return5: TRUE if the Avenger returned from their fifth death, FALSE if they did not, blank if not applicable</li>
+<li>notes: Descriptions of deaths and resurrections</li>
+</ul>
+</div>
+<div id="missing" class="section level2" number="4.3">
+<h2><span class="header-section-number">4.3</span> Missing</h2>
 
+</div>
 </div>
             </section>
 
