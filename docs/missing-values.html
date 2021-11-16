@@ -80,7 +80,7 @@
 <ul>
 <li class="chapter" data-level="4.1" data-path="missing-values.html"><a href="missing-values.html#description"><i class="fa fa-check"></i><b>4.1</b> Description</a></li>
 <li class="chapter" data-level="4.2" data-path="missing-values.html"><a href="missing-values.html#data-resource"><i class="fa fa-check"></i><b>4.2</b> Data Resource</a></li>
-<li class="chapter" data-level="4.3" data-path="missing-values.html"><a href="missing-values.html#missing"><i class="fa fa-check"></i><b>4.3</b> Missing</a></li>
+<li class="chapter" data-level="4.3" data-path="missing-values.html"><a href="missing-values.html#missing-patterns"><i class="fa fa-check"></i><b>4.3</b> Missing Patterns</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a></li>
 <li class="chapter" data-level="6" data-path="interactive-component.html"><a href="interactive-component.html"><i class="fa fa-check"></i><b>6</b> Interactive component</a></li>
@@ -127,31 +127,90 @@
 <p>Here are explanations of the column variables:</p>
 <ul>
 <li>url: The URL of the comic character on the Marvel Wikia</li>
-<li>name_alias: The full name or alias of the character</li>
-<li>appearances:The number of comic books that character appeared in as of April 30</li>
-<li>current: Is the member currently active on an avengers affiliated team?</li>
-<li>gender: The recorded gender of the character</li>
-<li>probationary_intro: Sometimes the character was given probationary status as an Avenger, this is the date that happened</li>
-<li>full_reserve_avengers_intro: The month and year the character was introduced as a full or reserve member of the Avengers</li>
+<li>name_alias: The full name or alias of the character, which will be abbreviated as “nm_l”</li>
+<li>appearances:The number of comic books that character appeared in as of April 30, which will be abbreviated as “appr”</li>
+<li>current: Is the member currently active on an avengers affiliated team?, which will be abbreviated as “crrn”</li>
+<li>gender: The recorded gender of the character, which will be abbreviated as “gndr”</li>
+<li>probationary_intro: Sometimes the character was given probationary status as an Avenger, this is the date that happened, which will be abbreviated as “prob_”</li>
+<li>full_reserve_avengers_intro: The month and year the character was introduced as a full or reserve member of the Avengers, which will be abbreviated as "f___"</li>
 <li>year: The year the character was introduced as a full or reserve member of the Avengers</li>
-<li>years_since_joining: 2015 minus the year</li>
-<li>honorary: The status of the avenger, if they were given “Honorary” Avenger status, if they are simply in the “Academy,” or “Full” otherwise</li>
-<li>death1: TRUE if the Avenger died, FALSE if not.</li>
-<li>return1: TRUE if the Avenger returned from their first death, FALSE if they did not, blank if not applicable</li>
-<li>death2: TRUE if the Avenger died a second time after their revival, FALSE if they did not, blank if not applicable</li>
-<li>return2: TRUE if the Avenger returned from their second death, FALSE if they did not, blank if not applicable</li>
-<li>death3: TRUE if the Avenger died a third time after their second revival, FALSE if they did not, blank if not applicable</li>
-<li>return3: TRUE if the Avenger returned from their third death, FALSE if they did not, blank if not applicable</li>
-<li>death4: TRUE if the Avenger died a fourth time after their third revival, FALSE if they did not, blank if not applicable</li>
-<li>return4: TRUE if the Avenger returned from their fourth death, FALSE if they did not, blank if not applicable</li>
-<li>death5: TRUE if the Avenger died a fifth time after their fourth revival, FALSE if they did not, blank if not applicable</li>
-<li>return5: TRUE if the Avenger returned from their fifth death, FALSE if they did not, blank if not applicable</li>
+<li>years_since_joining: 2015 minus the year, which will be abbreviated as "yr__"</li>
+<li>honorary: The status of the avenger, if they were given “Honorary” Avenger status, if they are simply in the “Academy,” or “Full” otherwise, which will be abbreviated as “hnrr”</li>
+<li>death1: TRUE if the Avenger died, FALSE if not, which will be abbreviated as “dth1”</li>
+<li>return1: TRUE if the Avenger returned from their first death, FALSE if they did not, blank if not applicable, which will be abbreviated as “rtr1”</li>
+<li>death2: TRUE if the Avenger died a second time after their revival, FALSE if they did not, blank if not applicable, which will be abbreviated as “dth2”</li>
+<li>return2: TRUE if the Avenger returned from their second death, FALSE if they did not, blank if not applicable, which will be abbreviated as “rtr2”</li>
+<li>death3: TRUE if the Avenger died a third time after their second revival, FALSE if they did not, blank if not applicable, which will be abbreviated as “dth3”</li>
+<li>return3: TRUE if the Avenger returned from their third death, FALSE if they did not, blank if not applicable, which will be abbreviated as “rtr3”</li>
+<li>death4: TRUE if the Avenger died a fourth time after their third revival, FALSE if they did not, blank if not applicable, which will be abbreviated as “dth4”</li>
+<li>return4: TRUE if the Avenger returned from their fourth death, FALSE if they did not, blank if not applicable, which will be abbreviated as “rtr4”</li>
+<li>death5: TRUE if the Avenger died a fifth time after their fourth revival, FALSE if they did not, blank if not applicable, which will be abbreviated as “dth5”</li>
+<li>return5: TRUE if the Avenger returned from their fifth death, FALSE if they did not, blank if not applicable, which will be abbreviated as “rtr5”</li>
 <li>notes: Descriptions of deaths and resurrections</li>
 </ul>
 </div>
-<div id="missing" class="section level2" number="4.3">
-<h2><span class="header-section-number">4.3</span> Missing</h2>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
+<div id="missing-patterns" class="section level2" number="4.3">
+<h2><span class="header-section-number">4.3</span> Missing Patterns</h2>
+<p>Let’s create some missing plots to see some partterns of the “avengers” data set.</p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<p>Now we observed some missing patterns.</p>
+<ul>
+<li>From the top graph:
+<ul>
+<li>We observed that every comic character of this data set has an url on the Marvel Wikia and appears somewhere once in comic books as of April 30(appr); most of them have full name or alias while some does not(nm_l).</li>
+<li>Additionally, they all joined the Avengers before (year &amp; yr__) and their current status on any avengers affiliated teams are recorded(crnn).</li>
+<li>More precisely, most of them joined the Avengers directly, which means they were not given probationary status as an Avenger(prb_).</li>
+<li>However, there are some cases that we do not know the month the character was introduced as a full or reserve member of the Avengers(f___).</li>
+<li>Their gender and honorary status(gndr &amp; hnrr) are also recorded in this data set.</li>
+<li>Moreover, this data set documented whether every one of them died once or not(dth1) for all comic characters and even recorded whether some comic characters returned from their first death(rtr1). For some comic characters died once, we know descriptions of their deaths and resurrections(nots).</li>
+<li>In addition, for most comic characters in this data set, we do not know whether they died more than once and whether they returned more than once. There are a few cases that we know whether some characters died after their first return from their first death and we know whether they returned from their second death. For all comic characters in this data set except <strong>Mar-Vell</strong> and <strong>Jocasta</strong>, we do not know whether they died more than twice or not and whether they returned more than twice or not. Here are their information except the “notes:” information</li>
+</ul></li>
+</ul>
+<pre><code>##                                                                      row1
+## url                         http://marvel.wikia.com/Mar-Vell_(Earth-616)#
+## name_alias                                                       Mar-Vell
+## appearances                                                           254
+## current                                                             FALSE
+## gender                                                               MALE
+## probationary_intro                                                     NA
+## full_reserve_avengers_intro                                        Jul-78
+## year                                                                 1978
+## years_since_joining                                                    37
+## honorary                                                             Full
+## death1                                                               TRUE
+## return1                                                              TRUE
+## death2                                                               TRUE
+## return2                                                              TRUE
+## death3                                                               TRUE
+## return3                                                             FALSE
+## death4                                                                 NA
+## return4                                                                NA
+## death5                                                                 NA
+## return5                                                                NA
+##                                                                     row2
+## url                         http://marvel.wikia.com/Jocasta_(Earth-616)#
+## name_alias                                                       Jocasta
+## appearances                                                          141
+## current                                                             TRUE
+## gender                                                            FEMALE
+## probationary_intro                                                Jul-80
+## full_reserve_avengers_intro                                       Nov-88
+## year                                                                1988
+## years_since_joining                                                   27
+## honorary                                                            Full
+## death1                                                              TRUE
+## return1                                                             TRUE
+## death2                                                              TRUE
+## return2                                                             TRUE
+## death3                                                              TRUE
+## return3                                                             TRUE
+## death4                                                              TRUE
+## return4                                                             TRUE
+## death5                                                              TRUE
+## return5                                                             TRUE</code></pre>
+<ul>
+<li>From the</li>
+</ul>
 
 </div>
 </div>

@@ -1,6 +1,6 @@
 plot_missing <- function(data,percent,mode){
-  if((dim(data)[2]>6) && unique(nchar(colnames(data))>=5)){
-    colnames(data) = abbreviate(colnames(data), minlength=3)
+  if((dim(data)[2]>6)){
+    colnames(data) = abbreviate(colnames(data), minlength = 4, strict = TRUE )
   }
   
   #draw graph 1:num/percent rows missing vs cols
@@ -18,7 +18,7 @@ plot_missing <- function(data,percent,mode){
   if(mode == 1 || mode == 4){
     p1<-ggplot(data=data1, aes(x=reorder(x,-y), y=y)) +
     geom_bar(stat="identity",fill="lightblue") +
-    theme(panel.grid.major.x = element_blank())
+    theme(panel.grid.major.x = element_blank(),axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
     if(percent==TRUE){
       p1 <- p1+labs(title="Missing value patterns",
       x=element_blank() ,y="% rows mssing:")
@@ -85,7 +85,7 @@ plot_missing <- function(data,percent,mode){
     p3 <- ggplot(missing_patterns2,aes(x=fct_relevel(var,levels(reorder(data1$x,-data1$y))),reorder(y,-y)))+
     geom_tile(aes(fill=pattern),color="white",lwd=0.5,linetype=1)+
     scale_fill_manual(values=c("gray48", "gray","mediumslateblue")) +
-    theme(legend.position = "none") +
+    theme(legend.position = "none",axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
     labs(x="variable",y="missing pattern")
     
     for(i in 1:text_num){

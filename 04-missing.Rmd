@@ -19,28 +19,30 @@ colnames(avengers)
 Here are explanations of the column variables:
 
 * url: The URL of the comic character on the Marvel Wikia
-* name_alias: The full name or alias of the character
-* appearances:The number of comic books that character appeared in as of April 30
-* current: Is the member currently active on an avengers affiliated team?
-* gender: The recorded gender of the character
-* probationary_intro: Sometimes the character was given probationary status as an Avenger, this is the date that happened
-* full_reserve_avengers_intro: The month and year the character was introduced as a full or reserve member of the Avengers
+* name_alias: The full name or alias of the character, which will be abbreviated as "nm_l"
+* appearances:The number of comic books that character appeared in as of April 30, which will be abbreviated as "appr"
+* current: Is the member currently active on an avengers affiliated team?, which will be abbreviated as "crrn"
+* gender: The recorded gender of the character, which will be abbreviated as "gndr"
+* probationary_intro: Sometimes the character was given probationary status as an Avenger, this is the date that happened, which will be abbreviated as "prob_"
+* full_reserve_avengers_intro: The month and year the character was introduced as a full or reserve member of the Avengers, which will be abbreviated as "f___"
 * year: The year the character was introduced as a full or reserve member of the Avengers
-* years_since_joining: 2015 minus the year
-* honorary: The status of the avenger, if they were given "Honorary" Avenger status, if they are simply in the "Academy," or "Full" otherwise
-* death1: TRUE if the Avenger died, FALSE if not.
-* return1: TRUE if the Avenger returned from their first death, FALSE if they did not, blank if not applicable
-* death2: TRUE if the Avenger died a second time after their revival, FALSE if they did not, blank if not applicable
-* return2: TRUE if the Avenger returned from their second death, FALSE if they did not, blank if not applicable
-* death3: TRUE if the Avenger died a third time after their second revival, FALSE if they did not, blank if not applicable
-* return3: TRUE if the Avenger returned from their third death, FALSE if they did not, blank if not applicable
-* death4: TRUE if the Avenger died a fourth time after their third revival, FALSE if they did not, blank if not applicable
-* return4: TRUE if the Avenger returned from their fourth death, FALSE if they did not, blank if not applicable
-* death5: TRUE if the Avenger died a fifth time after their fourth revival, FALSE if they did not, blank if not applicable
-* return5: TRUE if the Avenger returned from their fifth death, FALSE if they did not, blank if not applicable
+* years_since_joining: 2015 minus the year, which will be abbreviated as "yr__"
+* honorary: The status of the avenger, if they were given "Honorary" Avenger status, if they are simply in the "Academy," or "Full" otherwise, which will be abbreviated as "hnrr"
+* death1: TRUE if the Avenger died, FALSE if not, which will be abbreviated as "dth1"
+* return1: TRUE if the Avenger returned from their first death, FALSE if they did not, blank if not applicable, which will be abbreviated as "rtr1"
+* death2: TRUE if the Avenger died a second time after their revival, FALSE if they did not, blank if not applicable, which will be abbreviated as "dth2"
+* return2: TRUE if the Avenger returned from their second death, FALSE if they did not, blank if not applicable, which will be abbreviated as "rtr2"
+* death3: TRUE if the Avenger died a third time after their second revival, FALSE if they did not, blank if not applicable, which will be abbreviated as "dth3"
+* return3: TRUE if the Avenger returned from their third death, FALSE if they did not, blank if not applicable, which will be abbreviated as "rtr3"
+* death4: TRUE if the Avenger died a fourth time after their third revival, FALSE if they did not, blank if not applicable, which will be abbreviated as "dth4"
+* return4: TRUE if the Avenger returned from their fourth death, FALSE if they did not, blank if not applicable, which will be abbreviated as "rtr4"
+* death5: TRUE if the Avenger died a fifth time after their fourth revival, FALSE if they did not, blank if not applicable, which will be abbreviated as "dth5"
+* return5: TRUE if the Avenger returned from their fifth death, FALSE if they did not, blank if not applicable, which will be abbreviated as "rtr5"
 * notes: Descriptions of deaths and resurrections
 
-## Missing
+## Missing Patterns
+
+Let's create some missing plots to see some partterns of the "avengers" data set.
 
 ```{r}
 library(tidyverse)
@@ -49,8 +51,24 @@ source("plot_missing.R")
 plot_missing(avengers, percent = FALSE, mode = 4)
 ```
 
+Now we observed some missing patterns.
+
+* From the top graph:
+  + We observed that every comic character of this data set has an url on the Marvel Wikia and appears somewhere once in comic books as of April 30(appr); most of them have full name or alias while some does not(nm_l). 
+  + Additionally, they all joined the Avengers before (year & yr__) and their current status on any avengers affiliated teams are recorded(crnn). 
+  + More precisely, most of them joined the Avengers directly, which means they were not given probationary status as an Avenger(prb_). 
+  + However, there are some cases that we do not know the month the character was introduced as a full or reserve member of the Avengers(f___). 
+  + Their gender and honorary status(gndr & hnrr) are also recorded in this data set. 
+  + Moreover, this data set documented whether every one of them died once or not(dth1) for all comic characters and even recorded whether some comic characters returned from their first death(rtr1). For some comic characters died once, we know descriptions of their deaths and resurrections(nots). 
+  + In addition, for most comic characters in this data set, we do not know whether they died more than once and whether they returned more than once. There are a few cases that we know whether some characters died after their first return from their first death and we know whether they returned from their second death. For all comic characters in this data set except __Mar-Vell__ and __Jocasta__, we do not know whether they died more than twice or not and whether they returned more than twice or not. Here are their information except the "notes:" information
+
+```{r}
+row1 = as.list(filter(avengers, name_alias == "Mar-Vell") %>% select(-notes)) 
+row2 = as.list(filter(avengers, name_alias == "Jocasta") %>% select(-notes)) 
+dat = as.data.frame(cbind(row1,row2))
+print.data.frame(dat)
+```
 
 
-
-
+* From the 
 
