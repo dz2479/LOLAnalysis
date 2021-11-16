@@ -60,7 +60,7 @@ Now we observed some missing patterns.
   + However, there are some cases that we do not know the month the character was introduced as a full or reserve member of the Avengers(f___). 
   + Their gender and honorary status(gndr & hnrr) are also recorded in this data set. 
   + Moreover, this data set documented whether every one of them died once or not(dth1) for all comic characters and even recorded whether some comic characters returned from their first death(rtr1). For some comic characters died once, we know descriptions of their deaths and resurrections(nots). 
-  + In addition, for most comic characters in this data set, we do not know whether they died more than once and whether they returned more than once. There are a few cases that we know whether some characters died after their first return from their first death and we know whether they returned from their second death. For all comic characters in this data set except __Mar-Vell__ and __Jocasta__, we do not know whether they died more than twice or not and whether they returned more than twice or not. Here are their information except the "notes:" information
+  + In addition, for most comic characters in this data set, we do not know whether they died more than once and whether they returned more than once. There are a few cases that we know whether some characters died after their first return from their first death and we know whether they returned from their second death. For all comic characters in this data set except __Mar-Vell__ and __Jocasta__, we do not know whether they died more than twice or not and whether they returned more than twice or not. Here are their information except the "notes:" information.
 
 ```{r}
 row1 = as.list(filter(avengers, name_alias == "Mar-Vell") %>% select(-notes)) 
@@ -70,5 +70,10 @@ print.data.frame(dat)
 ```
 
 
-* From the 
+* From the bottom two graphs, we can further observe the missing patterns:
+  + For around 85 comic characters in this data set, we don't know whether they returned from their first death or how they died for the first time. As a result, we don't know the stories including deaths and returns after their first death. (pattern 1, 4, 6, 9, 14)
+  + For around 40 comic characters in this data set, we do know whether they returned from their first death and how they died for the first time, but we still don't know the stories after their first return if they had. (pattern 2, 5, 8)
+  + For around 10 comic characters in this data set, we know whether they died second time or returned second time, but not after that. (pattern 3, 11, 15, 16)
+  + Like we observed before, only one comic character does not have any missing values. (pattern 10)
+  + For most comic characters in this data set, we don't know their when they were given probationary status as an Avenger. (pattern 1, 2, 3, 4, 7, 8, 9, 15, 16)
 
