@@ -1,1 +1,5 @@
 # Data transformation
+
+The data we use can be directly copied from https://gol.gg/esports/home/ in table form. Since we decided to analyze the team from several aspects, we reorganized the data and categorized columns into different datasets in order to generate desired graphs.
+
+When data was read into R, some data type are all characters. Therefore, we converted data type to the correct one. For better analysis, we transformed variable “Game.Duration” from character to numeric format. Besides, some data ends with % notation. So we removed %, converted it into numeric value and then divide it by 100. 

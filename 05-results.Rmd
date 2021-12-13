@@ -1,1 +1,427 @@
 # Results
+
+```{r}
+# rename the team name abbr.
+team_stats = read.csv("./data/team_stats.csv")
+team_stats_new = team_stats
+team_stats_new$Name=c("100T","C9","DFM","DK","EDG","FNC","FPX","GENG","HLE","LNG","MAD","PSG","RGE","RNG","T1","TL")
+```
+
+```{r}
+# add rank of each time
+rank = c(1,2,4,4,8,8,8,8,16,16,16,16,16,16,16,16)
+Name = c("EDG","DK","GENG","T1","RNG","C9","HLE","MAD","RGE","FPX","100T","DFM","PSG","FNC","LNG","TL")
+rank.dat = data.frame(Name,rank)
+
+# merge rank to team stats
+team_stats_comp= merge(team_stats_new,rank.dat,by="Name")
+
+library(dplyr)
+team_stats_comp[is.na(team_stats_comp)] = "NA"
+team_stats_comp = team_stats_comp %>%
+  select(-Season)
+for(i in 1:nrow(team_stats_comp)){
+  time = str_split(team_stats_comp[i,8], ":")[[1]]
+  team_stats_comp[i,8] = round((as.numeric(time[1])+as.numeric(time[2])/60), digits = 2)
+}
+team_stats_comp$Win.rate = as.numeric(gsub("[\\%,]","",team_stats_comp$Win.rate))/100
+```
+
+```{r}
+library(stringr)
+# player_stats
+# add each play belongs to which team
+top_stats = read.csv("./data/top_stats.csv")
+top_team = read.csv("./data//top_team.csv")
+top_stats$Player = str_trim(top_stats$Player,side="right")
+top_stats$Player = str_to_title(top_stats$Player) 
+top_team$Player = str_trim(top_stats$Player,side="right")
+top_team$Player = str_to_title(top_stats$Player) 
+top_stats_comp = merge(top_stats,top_team,by="Player")
+top_stats_comp$Win.rate = as.numeric(gsub("[\\%,]","",top_stats_comp$Win.rate))/100
+top_stats_comp$KP. = as.numeric(gsub("[\\%,]","",top_stats_comp$KP.))/100
+top_stats_comp$FB.Victim = as.numeric(gsub("[\\%,]","",top_stats_comp$FB.Victim))/100
+top_stats_comp$FB.. = as.numeric(gsub("[\\%,]","",top_stats_comp$FB..))/100
+top_stats_comp$Solo.Kills = as.numeric(replace(top_stats_comp$Solo.Kills, top_stats_comp$Solo.Kills == "-", 0))
+
+jug_stats = read.csv("./data//jug_stats.csv")
+jug_team = read.csv("./data//jug_team.csv")
+jug_stats$Player = str_trim(jug_stats$Player,side="right")
+jug_stats$Player = str_to_title(jug_stats$Player) 
+jug_team$Player = str_trim(jug_stats$Player,side="right")
+jug_team$Player = str_to_title(jug_stats$Player) 
+jug_stats_comp = merge(jug_stats,jug_team,by="Player")
+jug_stats_comp$Win.rate = as.numeric(gsub("[\\%,]","",jug_stats_comp$Win.rate))/100
+jug_stats_comp$KP. = as.numeric(gsub("[\\%,]","",jug_stats_comp$KP.))/100
+jug_stats_comp$FB.Victim = as.numeric(gsub("[\\%,]","",jug_stats_comp$FB.Victim))/100
+jug_stats_comp$FB.. = as.numeric(gsub("[\\%,]","",jug_stats_comp$FB..))/100
+jug_stats_comp$Solo.Kills = as.numeric(replace(jug_stats_comp$Solo.Kills, jug_stats_comp$Solo.Kills == "-", 0))
+
+mid_stats = read.csv("./data//mid_stats.csv")
+mid_team = read.csv("./data//mid_team.csv")
+mid_stats$Player = str_trim(mid_stats$Player,side="right")
+mid_stats$Player = str_to_title(mid_stats$Player) 
+mid_team$Player = str_trim(mid_stats$Player,side="right")
+mid_team$Player = str_to_title(mid_stats$Player) 
+mid_stats_comp = merge(mid_stats,mid_team,by="Player")
+mid_stats_comp$Win.rate = as.numeric(gsub("[\\%,]","",mid_stats_comp$Win.rate))/100
+mid_stats_comp$KP. = as.numeric(gsub("[\\%,]","",mid_stats_comp$KP.))/100
+mid_stats_comp$FB.Victim = as.numeric(gsub("[\\%,]","",mid_stats_comp$FB.Victim))/100
+mid_stats_comp$FB.. = as.numeric(gsub("[\\%,]","",mid_stats_comp$FB..))/100
+mid_stats_comp$Solo.Kills = as.numeric(replace(mid_stats_comp$Solo.Kills, mid_stats_comp$Solo.Kills == "-", 0))
+
+bot_stats = read.csv("./data//bot_stats.csv")
+bot_team = read.csv("./data//bot_team.csv")
+bot_stats$Player = str_trim(bot_stats$Player,side="right")
+bot_stats$Player = str_to_title(bot_stats$Player) 
+bot_team$Player = str_trim(bot_stats$Player,side="right")
+bot_team$Player = str_to_title(bot_stats$Player) 
+bot_stats_comp = merge(bot_stats,bot_team,by="Player")
+bot_stats_comp$Win.rate = as.numeric(gsub("[\\%,]","",bot_stats_comp$Win.rate))/100
+bot_stats_comp$KP. = as.numeric(gsub("[\\%,]","",bot_stats_comp$KP.))/100
+bot_stats_comp$FB.Victim = as.numeric(gsub("[\\%,]","",bot_stats_comp$FB.Victim))/100
+bot_stats_comp$FB.. = as.numeric(gsub("[\\%,]","",bot_stats_comp$FB..))/100
+bot_stats_comp$Solo.Kills = as.numeric(replace(bot_stats_comp$Solo.Kills, bot_stats_comp$Solo.Kills == "-", 0))
+
+sup_stats = read.csv("./data//sup_stats.csv")
+sup_team = read.csv("./data//sup_team.csv")
+sup_stats$Player = str_trim(sup_stats$Player,side="right")
+sup_stats$Player = str_to_title(sup_stats$Player) 
+sup_team$Player = str_trim(sup_stats$Player,side="right")
+sup_team$Player = str_to_title(sup_stats$Player) 
+sup_stats_comp = merge(sup_stats,sup_team,by="Player")
+sup_stats_comp$Win.rate = as.numeric(gsub("[\\%,]","",sup_stats_comp$Win.rate))/100
+sup_stats_comp$KP. = as.numeric(gsub("[\\%,]","",sup_stats_comp$KP.))/100
+sup_stats_comp$FB.Victim = as.numeric(gsub("[\\%,]","",sup_stats_comp$FB.Victim))/100
+sup_stats_comp$FB.. = as.numeric(gsub("[\\%,]","",sup_stats_comp$FB..))/100
+sup_stats_comp$Solo.Kills = as.numeric(replace(sup_stats_comp$Solo.Kills, sup_stats_comp$Solo.Kills == "-", 0))
+```
+
+## Influence of Gold Efficiency to Winning Rate
+For this analysis, we will use 
+
+* GD.15: gold differential at 15 minutes
+* GPM: gold per minute
+* CSM: creeps per minute 
+
+to measure gold efficiency.
+
+```{r}
+# gold
+gold_dat = team_stats_comp[,c("Name","Win.rate","GPM","GD.15","CSM")]
+gold_dat <- gold_dat %>% mutate_each_(list(~scale(.) %>% as.vector),
+                                  vars = c("GPM","GD.15","CSM"))
+gold_bar1 = ggplot(gold_dat, aes(x=reorder(Name,Win.rate),y=GPM)) + geom_bar(stat="identity") + xlab("Team Names") + coord_flip()
+gold_bar2 = ggplot(gold_dat, aes(x=reorder(Name,Win.rate),y=GD.15)) + geom_bar(stat="identity") + xlab("Team Names") + coord_flip()
+gold_bar3 = ggplot(gold_dat, aes(x=reorder(Name,Win.rate),y=CSM)) + geom_bar(stat="identity") + xlab("Team Names") + coord_flip()
+
+gold_bar2+gold_bar1+gold_bar3+plot_layout(widths=3,heights=1)
+```
+
+This graph is ordered by winning rates, in which top teams have higher winning rate(all bar charts below have same name order). From the above graph, we noticed that GPM and GD.15 are very important to a team's winning rate because teams with highest winning rate including DK, T1, GENG, EDG, RNG all have high GPM and GD.15. DFM has the lowest GPM and GD.15 so we now know why it has the lowest winning rate. Surprisingly, CSM does not have much impact to winning rate because we thought it might be important because it is one source of gold. Now, let's look at how player's GPM and GD.15 influence team's GPM and GD.15
+
+```{r}
+teams = rep(team_stats_comp$Name, each = 5)
+rate = rep(team_stats_comp$Win.rate, each = 5)
+roles = rep(c("top" , "jug" , "mid", 'bot', 'sup'), nrow(team_stats_comp))
+GD.15 = c()
+GPM = c()
+for(i in 1:length(team_stats_comp$Name)){
+  value1 = c()
+  value2 = c()
+  team_top = filter(top_stats_comp, top_stats_comp$Team == team_stats_comp$Name[i])
+  for(j in 1:nrow(team_top)){
+    value1 = append(value1, team_top$GD.15[j])
+    value2 = append(value2, team_top$GPM[j])
+  }
+  team_jug = filter(jug_stats_comp, jug_stats_comp$Team == team_stats_comp$Name[i])
+  for(j in 1:nrow(team_jug)){
+    value1 = append(value1, team_jug$GD.15[j])
+    value2 = append(value2, team_jug$GPM[j])
+  }
+  team_mid = filter(mid_stats_comp, mid_stats_comp$Team == team_stats_comp$Name[i])
+  for(j in 1:nrow(team_mid)){
+    value1 = append(value1, team_mid$GD.15[j])
+    value2 = append(value2, team_mid$GPM[j])
+  }
+  team_bot = filter(bot_stats_comp, bot_stats_comp$Team == team_stats_comp$Name[i])
+  for(j in 1:nrow(team_bot)){
+    value1 = append(value1, team_bot$GD.15[j])
+    value2 = append(value2, team_bot$GPM[j])
+  }
+  team_sup = filter(sup_stats_comp, sup_stats_comp$Team == team_stats_comp$Name[i])
+  for(j in 1:nrow(team_sup)){
+    value1 = append(value1, team_sup$GD.15[j])
+    value2 = append(value2, team_sup$GPM[j])
+  }
+  if(team_stats_comp$Name[i] == "GENG"){
+    value1[1] = (value1[1]+value1[2])/2
+    value2[1] = (value2[1]+value2[2])/2
+    value1 = value1[-2]
+    value2 = value2[-2]
+  }
+  GD.15 = append(GD.15, value1)
+  GPM = append(GPM, value2)
+}
+
+data = data.frame(teams,roles,rate,GD.15,GPM)
+p1 = ggplot(data, aes(fill=roles, y=GD.15, x=reorder(teams,rate))) + xlab("Teams") +
+    geom_bar(position="stack", stat="identity")+coord_flip()
+p2 = ggplot(data, aes(fill=roles, y=GPM, x=reorder(teams,rate))) + xlab("Teams") +
+    geom_bar(position="stack", stat="identity")+coord_flip()
+p1+p2+plot_layout(widths=2,heights=1)
+```
+
+From this graph, we noticed that the contribution to team's GD.15 of five positions does not have a common pattern for all teams. Therefore, we cannot tell which position contributes most but there are some features for some teams. For example, for teams like PSG and 100T, their GD.15 comes most from *bot* and *top*. For teams like FPX, MAD, HLE, and T1, their GD.15 comes least from *jug*. 
+
+On the other hand, the contribution to team's GPM of five positions does have a common pattern for all teams. We can see that GPM comes least from sup. For rest positions, it's about the same. We can conclude all team members are important to the team.
+
+In general, GD.15 and GPM are really important to teams' winning rate. Different player contributes differently to GD.15 but contributes almost same to GPM(equally important).
+
+## Influence of Vision Control to Winning Rate
+For this analysis, we will use 
+
+* WPM: Wards per minute
+* VWPM: Vision wards per minute
+* WCPM: Wards cleared per minute
+
+to measure vision control as described in introduction.
+
+```{r}
+library(patchwork)
+
+# ward
+vision_dat = team_stats_comp[,c("Name","Win.rate","WPM","VWPM","WCPM","Region")]
+vision_dat <- vision_dat %>% mutate_each_(list(~scale(.) %>% as.vector),
+                                  vars = c("WPM","VWPM","WCPM"))
+vision_bar1 = ggplot(vision_dat, aes(x=reorder(Name,Win.rate),y=WPM, fill = Region)) + geom_bar(stat="identity") +  coord_flip() + theme(legend.position = "none")
+vision_bar2 = ggplot(vision_dat, aes(x=reorder(Name,Win.rate),y=VWPM, fill = Region)) + geom_bar(stat="identity") + coord_flip() + theme(legend.position = "none")
+vision_bar3 = ggplot(vision_dat, aes(x=reorder(Name,Win.rate),y=WCPM, fill = Region)) + geom_bar(stat="identity") + coord_flip() + theme(legend.position = "none")
+
+vision_bar1+vision_bar2+vision_bar3+plot_layout(widths=3,heights=1)
+```
+
+From the above graph, we can see that DK that has the highest winning rate controls vision very great. We also noticed that from the last two graphs that LCK teams(teams from Korean, colored green) has the best vision control than all other teams. From these three graphs, we cannot tell vision control plays a crucial role in winning rate. However, let's still look at the contribution to vision control of different positions. 
+
+```{r}
+teams = rep(team_stats_comp$Name, each = 5)
+rate = rep(team_stats_comp$Win.rate, each = 5)
+roles = rep(c("top" , "jug" , "mid", 'bot', 'sup'), nrow(team_stats_comp))
+WPM = c()
+VWPM = c()
+WCPM = c()
+for(i in 1:length(team_stats_comp$Name)){
+  value1 = c()
+  value2 = c()
+  value3 = c()
+  team_top = filter(top_stats_comp, top_stats_comp$Team == team_stats_comp$Name[i])
+  for(j in 1:nrow(team_top)){
+    value1 = append(value1, team_top$Avg.WPM[j])
+    value2 = append(value2, team_top$Avg.VWPM[j])
+    value3 = append(value3, team_top$Avg.WCPM[j])
+  }
+  team_jug = filter(jug_stats_comp, jug_stats_comp$Team == team_stats_comp$Name[i])
+  for(j in 1:nrow(team_jug)){
+    value1 = append(value1, team_jug$Avg.WPM[j])
+    value2 = append(value2, team_jug$Avg.VWPM[j])
+    value3 = append(value3, team_jug$Avg.WCPM[j])
+  }
+  team_mid = filter(mid_stats_comp, mid_stats_comp$Team == team_stats_comp$Name[i])
+  for(j in 1:nrow(team_mid)){
+    value1 = append(value1, team_mid$Avg.WPM[j])
+    value2 = append(value2, team_mid$Avg.VWPM[j])
+    value3 = append(value3, team_mid$Avg.WCPM[j])
+  }
+  team_bot = filter(bot_stats_comp, bot_stats_comp$Team == team_stats_comp$Name[i])
+  for(j in 1:nrow(team_bot)){
+    value1 = append(value1, team_bot$Avg.WPM[j])
+    value2 = append(value2, team_bot$Avg.VWPM[j])
+    value3 = append(value3, team_bot$Avg.WCPM[j])
+  }
+  team_sup = filter(sup_stats_comp, sup_stats_comp$Team == team_stats_comp$Name[i])
+  for(j in 1:nrow(team_sup)){
+    value1 = append(value1, team_sup$Avg.WPM[j])
+    value2 = append(value2, team_sup$Avg.VWPM[j])
+    value3 = append(value3, team_sup$Avg.WCPM[j])
+  }
+  if(team_stats_comp$Name[i] == "GENG"){
+    value1[1] = (value1[1]+value1[2])/2
+    value2[1] = (value2[1]+value2[2])/2
+    value3[1] = (value3[1]+value3[2])/2
+    value1 = value1[-2]
+    value2 = value2[-2]
+    value3 = value3[-2]
+  }
+  WPM = append(WPM, value1)
+  VWPM = append(VWPM, value2)
+  WCPM = append(WCPM, value2)
+}
+
+data = data.frame(teams,roles,rate,WPM,VWPM,WCPM)
+p1 = ggplot(data, aes(fill=roles, y=WPM, x=reorder(teams,rate))) + xlab("Teams") +
+    geom_bar(position="stack", stat="identity")+coord_flip() + theme(legend.position = "none")
+p2 = ggplot(data, aes(fill=roles, y=VWPM, x=reorder(teams,rate))) + xlab("Teams") +
+    geom_bar(position="stack", stat="identity")+coord_flip() + theme(legend.position = "none")
+p3 = ggplot(data, aes(fill=roles, y=WCPM, x=reorder(teams,rate))) + xlab("Teams") +
+    geom_bar(position="stack", stat="identity")+coord_flip()
+p1+p2+p3+plot_layout(widths=3,heights=1)
+```
+
+From above graphs, we can clearly see that *sup* contributes most to team's vision control in all three WPM, VWPM, and WCPM. The second is *jug*. 
+
+## Influence of Objects Control to Winning Rate
+For this analysis, we will use
+
+* DRAPG: Dragon killed per game
+* DRA.: Dragon control percent
+* NASHPG: Nash Baron killed per game
+* NASH.: Nash Baron control percent
+* HERPG: Rift Herald killed per game
+* HER.: Rift Herald control percent
+
+to measure objects control. The reason for choosing these three monsters is that they often provoke fights between two teams. We want to know why the two teams compete for those monsters.
+
+```{r}
+#jungle
+jug_dat = team_stats_comp[,c("Name","Win.rate","DRAPG","DRA.","HERPG","HER.","NASHPG","NASH.")]
+jug_dat <- jug_dat %>% mutate_each_(list(~scale(.) %>% as.vector),
+                                  vars = c("DRAPG","DRA.","HERPG","HER.","NASHPG","NASH."))
+jug_bar1 = ggplot(jug_dat, aes(x=reorder(Name,Win.rate),y=DRAPG)) + geom_bar(stat="identity") + coord_flip()+ xlab("Teams")
+
+jug_bar3 = ggplot(jug_dat, aes(x=reorder(Name,Win.rate),y=HERPG)) + geom_bar(stat="identity") + coord_flip()+ xlab("Teams")
+
+jug_bar5 = ggplot(jug_dat, aes(x=reorder(Name,Win.rate),y=NASHPG)) + geom_bar(stat="identity") + coord_flip()+ xlab("Teams")
+
+jug_bar1+jug_bar5+jug_bar3+plot_layout(widths=3,heights=1)
+```
+
+```{r}
+jug_bar2 = ggplot(jug_dat, aes(x=reorder(Name,Win.rate),y=DRA.)) + geom_bar(stat="identity") + coord_flip()+ xlab("Teams")
+jug_bar4 = ggplot(jug_dat, aes(x=reorder(Name,Win.rate),y=HER.)) + geom_bar(stat="identity") + coord_flip()+ xlab("Teams")
+jug_bar6 = ggplot(jug_dat, aes(x=reorder(Name,Win.rate),y=NASH.)) + geom_bar(stat="identity") + coord_flip()+ xlab("Teams")
+jug_bar2+jug_bar6+jug_bar4+plot_layout(widths=3,heights=1)
+```
+
+
+As a result, from the above six graphs, we can conclude that controlling more Dragons and Nash Barons is crucial in winning a game. The top 5 winning teams have high controls of Dragon and Nash Baron while the bot 5 winning teams always lose them. However, it is not obvious that controlling more Rift Herald will make one team easier to win. Teams like HLE, MAD, C9, FPX and FNC controls lots of Rift Herald but they have relatively low wining rate.
+
+## Influence of Gaming Strategy to Winning Rate
+
+We will measure the blood degree of teams by using 
+
+* Kills...game: Kills of team per game
+* Deaths...game: Deathes of team per game
+* FB.: First blood rate
+* Towers.killed: Towers killed per game
+* Towers.lost: Towers lost per game
+* FT.: First tower rate 
+
+For above variables, the higher they are, the bloody a team is
+
+```{r}
+ggplot(team_stats_comp,aes(x=reorder(Name,-Win.rate)))+
+  geom_line(aes(y=Kills...game,group = 1),color="red")+
+  geom_line(aes(y=Deaths...game,group = 1),color="blue")+
+  geom_line(aes(y=FB./10,group = 1),color="darkgreen")+
+  scale_y_continuous(
+    # Features of the first axis
+    name = "Kills(red) or Deaths(blue) per game",
+    
+    # Add a second axis and specify its features
+    sec.axis = sec_axis(~., name="First Blood Rate(0.1%)")
+  )+
+  theme(
+    axis.title.y = element_text(size=13),
+    axis.title.y.right = element_text(color = "darkgreen", size=13)
+  ) +
+  xlab("Teams")
+
+```
+
+This graph is ordered by winning rate, in which left teams have higher winning rate(same for all line graphs below). From kills and deaths perspective, except FNC, all other teams have almost same kills and deaths. Additionally, their first blood rate does not differ much. Therefore, the degree of blood of different teams from this view is about the same. However, this graph shows that if one team have less deaths, they will be easier to win.
+
+
+```{r}
+ggplot(team_stats_comp,aes(x=reorder(Name,-Win.rate)))  +
+  geom_line(aes(y=Towers.killed,group = 1),color="red")+
+  geom_line(aes(y=Towers.lost,group = 1),color="blue")+
+  geom_line(aes(y=FT. / 20,group = 1),color="darkgreen")+
+  scale_y_continuous(
+    # Features of the first axis
+    name = "Tower Killed(red) or Lost(blue) per game",
+    
+    # Add a second axis and specify its features
+    sec.axis = sec_axis(~., name="First Tower Rate(0.05%)")
+  )+ 
+  theme(
+    axis.title.y = element_text(size=13),
+    axis.title.y.right = element_text(color = "darkgreen", size=13)
+  )+
+  xlab("Teams")
+
+```
+
+From towers killed and lost perspective, if one team has more towers killed, higher first tower rate, and less towers lost, it will have a higher winning rate. Therefore, combined with kills and deaths perspective, if a team is more defensive, which means that they have less deaths and lose less towers, they gain victory easier.
+
+## Influence of Players to Winning Rate
+
+For this analysis, we want to know how each postion, i.e., *top*, *jug*, *mid*, *bot*, and *sup* influence teams' winning rate.
+
+```{r}
+corr_top = round(cor(top_stats_comp[5:dim(top_stats_comp)[2]-2]),1)
+corr_top = data.frame(var=rownames(corr_top),y=corr_top[1,]) 
+corr_top = corr_top[-1,]
+top = ggplot(data=corr_top,aes(x=reorder(var,-y),y=y)) + geom_bar(stat="identity") + ylab("Correlation with winning rate") +xlab("Top Aspects") + theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+
+corr_jug = round(cor(jug_stats_comp[5:dim(jug_stats_comp)[2]-2]),1)
+corr_jug = data.frame(var=rownames(corr_jug),y=corr_jug[1,]) 
+corr_jug = corr_jug[-1,]
+jug = ggplot(data=corr_jug,aes(x=reorder(var,-y),y=y)) + geom_bar(stat="identity")+ xlab("Jug Aspects")+
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1), axis.title.y=element_blank())
+top+jug+plot_layout(widths=2,heights=1)
+```
+
+```{r}
+corr_mid = round(cor(mid_stats_comp[5:dim(mid_stats_comp)[2]-2]),1)
+corr_mid = data.frame(var=rownames(corr_mid),y=corr_mid[1,]) 
+corr_mid = corr_mid[-1,]
+ggplot(data=corr_mid,aes(x=reorder(var,-y),y=y)) + geom_bar(stat="identity")+
+  ylab("Correlation with winning rate") + xlab("Mid Aspects")+
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+```
+
+```{r}
+corr_bot = round(cor(bot_stats_comp[5:dim(bot_stats_comp)[2]-2]),1)
+corr_bot = data.frame(var=rownames(corr_bot),y=corr_bot[1,]) 
+corr_bot = corr_bot[-1,]
+bot = ggplot(data=corr_bot,aes(x=reorder(var,-y),y=y)) + geom_bar(stat="identity") +
+  ylab("Correlation with winning rate") +xlab("Bot Aspects")+
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+
+corr_sup = round(cor(sup_stats_comp[5:dim(sup_stats_comp)[2]-2]),1)
+corr_sup = data.frame(var=rownames(corr_sup),y=corr_sup[1,]) 
+corr_sup = corr_sup[-1,]
+sup = ggplot(data=corr_sup,aes(x=reorder(var,-y),y=y)) + geom_bar(stat="identity") +
+  xlab("Sup Aspects")+
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1), axis.title.y=element_blank())
+bot+sup+plot_layout(widths=2,heights=1)
+```
+
+From the above five graphs, we can notice that, besides gold efficiency and vision control, KDA and first blood rate is important to players. To summarize, to help team win a game, the most crucial thing for a player is to farm well and get a higher KDA. If all five players can have a better gold efficiency and higher KDA, their team is one step away from victory.
+
+## Correlation of Different Variables
+
+After some analysis of our datasets, we conclude that 
+
+* Higher gold efficiency, better objects control, and more defensive gaming strategy will help a team win a game easier; vision control, however, doesn't help a lot. One explanation is that every team is good at vision control so that it cannot be an indicator of winning rate. Players' gold efficiency has direct and positive influence on team's gold efficiency. 
+* Besides gold efficiency, even though vision control does not help team a lot, players should farm well and still controls it's line's vision to get a better wining rate.
+
+When analyzing our datasets, we noticed some other interesting points. Let's take a look at the following graph.
+
+```{r}
+ggcorrplot(corr,tl.cex=8,hc.order = TRUE,
+           type = "lower",
+           outline.color = "white")
+```
+
+If we can have better gold efficiency, we will control more visions and kill more towers. With better vision controls and more towers killed, we will control more Dragons and more Nash Barons. As a result, we will have a higher probability to win.

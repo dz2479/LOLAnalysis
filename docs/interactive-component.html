@@ -24,7 +24,7 @@
 <meta name="author" content="Daoxing Zhang &amp; Siqi He" />
 
 
-<meta name="date" content="2021-11-18" />
+<meta name="date" content="2021-12-13" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -73,7 +73,11 @@
 <li><a href="./">LOLAnalysis</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#background-information"><i class="fa fa-check"></i><b>1.1</b> Background Information</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#interested-topics"><i class="fa fa-check"></i><b>1.2</b> Interested Topics</a></li>
+</ul></li>
 <li class="chapter" data-level="2" data-path="data-sources.html"><a href="data-sources.html"><i class="fa fa-check"></i><b>2</b> Data sources</a></li>
 <li class="chapter" data-level="3" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>3</b> Data transformation</a></li>
 <li class="chapter" data-level="4" data-path="missing-values.html"><a href="missing-values.html"><i class="fa fa-check"></i><b>4</b> Missing values</a>
@@ -82,7 +86,15 @@
 <li class="chapter" data-level="4.2" data-path="missing-values.html"><a href="missing-values.html#data-resource"><i class="fa fa-check"></i><b>4.2</b> Data Resource</a></li>
 <li class="chapter" data-level="4.3" data-path="missing-values.html"><a href="missing-values.html#missing-patterns"><i class="fa fa-check"></i><b>4.3</b> Missing Patterns</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a></li>
+<li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="results.html"><a href="results.html#influence-of-gold-efficiency-to-winning-rate"><i class="fa fa-check"></i><b>5.1</b> Influence of Gold Efficiency to Winning Rate</a></li>
+<li class="chapter" data-level="5.2" data-path="results.html"><a href="results.html#influence-of-vision-control-to-winning-rate"><i class="fa fa-check"></i><b>5.2</b> Influence of Vision Control to Winning Rate</a></li>
+<li class="chapter" data-level="5.3" data-path="results.html"><a href="results.html#influence-of-objects-control-to-winning-rate"><i class="fa fa-check"></i><b>5.3</b> Influence of Objects Control to Winning Rate</a></li>
+<li class="chapter" data-level="5.4" data-path="results.html"><a href="results.html#influence-of-gaming-strategy-to-winning-rate"><i class="fa fa-check"></i><b>5.4</b> Influence of Gaming Strategy to Winning Rate</a></li>
+<li class="chapter" data-level="5.5" data-path="results.html"><a href="results.html#influence-of-players-to-winning-rate"><i class="fa fa-check"></i><b>5.5</b> Influence of Players to Winning Rate</a></li>
+<li class="chapter" data-level="5.6" data-path="results.html"><a href="results.html#correlation-of-different-variables"><i class="fa fa-check"></i><b>5.6</b> Correlation of Different Variables</a></li>
+</ul></li>
 <li class="chapter" data-level="6" data-path="interactive-component.html"><a href="interactive-component.html"><i class="fa fa-check"></i><b>6</b> Interactive component</a></li>
 <li class="chapter" data-level="7" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>7</b> Conclusion</a></li>
 <li class="divider"></li>
@@ -106,6 +118,194 @@
             <section class="normal" id="section-">
 <div id="interactive-component" class="section level1" number="6">
 <h1><span class="header-section-number">Chapter 6</span> Interactive component</h1>
+<script src="https://d3js.org/d3.v6.js"></script>
+<head>
+<title>
+Id Attributes
+</title>
+<style>  
+        #GPM { 
+            color:black; 
+            font-size:14px; 
+            font-weight:bold; 
+            text-align:center; 
+         } 
+         #GDM { 
+            color:black; 
+            font-size:14px; 
+            font-weight:bold; 
+            text-align:center; 
+         }
+         
+ 
+
+    </style>
+</head>
+<div id="plot">
+
+</div>
+<p style="font-size: 24px" class="fancy">
+Choose your interested team stats
+</p >
+<p id="GPM">
+<button type="button">
+GPM
+</button>
+</p >
+<p id="GDM">
+<button type="button">
+GDM
+</button>
+</p >
+<script>
+  var w = 700;
+  var h = 400;
+  var margin = {top: 80, right: 0, bottom: 25,
+      left: 50};
+  var innerWidth = w - margin.left - margin.right;
+  var innerHeight = h - margin.top - margin.bottom;
+
+  var bardata = [1691,1762,1533,1835,1807,1756,1703,1798,1734,1757,1778,1746,1752,1807,1848,1735];
+  
+
+  var xScale = d3.scaleBand()
+      .domain(d3.range(bardata.length))
+      .range([0, innerWidth])
+      .paddingInner(0.1);
+
+  var yScale = d3.scaleLinear()
+      .domain([0, d3.max(bardata)])
+      .range([innerHeight,0]);
+
+  var xAxis = d3.axisBottom()
+      .scale(xScale)
+      .tickFormat((d, i) => ["100T","C9","DFM","DK","EDG","FNC","FPX","GENG","HLE","LNG","MAD","PSG","RGE","RNG","T1","TL" ][i]);
+
+  var yAxis = d3.axisLeft()
+        .scale(yScale);
+
+// add svg
+
+  var svg = d3.select("div#plot")
+    .append("svg")
+      .attr("width", w)
+      .attr("height", h);
+
+// add background rectangle
+
+  svg.append("rect")
+      .attr("x", 0)
+      .attr("y", 0)
+      .attr("width", w)
+      .attr("height", h)
+      .attr("fill", "white");
+
+// add bars as a group
+
+  var bars = svg.append("g")
+      .attr("id", "plot")
+      .attr("transform", `translate (${margin.left}, ${margin.top})`)
+    .selectAll("rect")
+      .data(bardata);
+
+  bars.enter().append("rect")
+      .attr("x", (d, i) => xScale(i))
+      .attr("y", d => yScale(d))
+      .attr("width", xScale.bandwidth())
+      .attr("height", d => innerHeight - yScale(d))
+      .attr("fill", "green");
+
+// add axes
+
+  svg.append("g")
+      .attr("class", "xAxis")
+      .attr("transform", `translate (${margin.left}, ${h - margin.bottom})`)
+      .call(xAxis);
+
+  svg.append("g")
+      .attr("class", "yAxis")
+      .attr("transform", `translate (${margin.left}, ${margin.top})`)
+      .call(yAxis);
+
+  svg.append("text")
+     .attr("transform", "translate(100,0)")
+     .attr("x", 15)
+     .attr("y", 40)
+     .attr("font-size", "24px")
+     .text("2021 World Championships");
+   
+
+
+// General Update Pattern
+  function update(data) {
+      xScale.domain(d3.range(data.length));
+      yScale.domain([0, d3.max(data)]);
+
+      var bars = svg.select("g")
+          .selectAll("rect")
+          .data(data);
+
+      bars.enter()
+        .append("rect")
+          .attr("x", w)
+          .attr("y", d => yScale(d))
+          .attr("width", xScale.bandwidth())
+          .attr("height", d => innerHeight - yScale(d))
+          .attr("fill", "blue")
+        .merge(bars)
+          .transition()
+          .duration(2000)
+          .ease(d3.easeLinear)
+          .attr("x", (d, i) => xScale(i))
+          .attr("y", d => yScale(d))
+          .attr("width", xScale.bandwidth())
+          .attr("height", d => innerHeight - yScale(d));
+ 
+
+      bars.exit().remove();
+
+      svg.select(".xAxis")
+          .transition()
+          .duration(2000)
+          .ease(d3.easeLinear)
+          .call(xAxis);
+
+      svg.select(".yAxis")
+          .transition()
+          .duration(2000)
+          .ease(d3.easeLinear)
+          .call(yAxis);
+    }
+    
+    
+    
+  // Interactivity
+  
+    d3.selectAll("p").on("click", function() {
+
+            var paraID = d3.select(this).attr("id");
+
+            if (paraID == "GPM") {
+                bardata = [1691,1762,1533,1835,1807,1756,1703,1798,1734,1757,1778,1746,1752,1807,1848,1735];}
+     else if (paraID == "GDM") {
+  bardata = [-89,-98,-447,150,105,-211,-188,48,-37,-5,-52,-59,-81,40,212,-73];}
+     else if (paraID == "nonDurableGoods") {
+  bardata = [1531,1292,1092,1036,980,909,1005,940];}
+     else if (paraID == "nonFinancial") {
+  bardata = [42416,38646,32890,30650,28567,27450,28311,30539];}
+     else if (paraID == "nonFarm") {
+  bardata = [48548,44499,38067,35716,33404,31870,32639,35394];}
+     else {bardata = [6132,5853,5177,5066,4837,4420,4328,4855];}
+
+            update(bardata);
+
+        });
+ 
+ </script>
+<p>
+The interactive bar graph shows the different team stats in 2022 lol World Championship by teams.
+Click on the buttons.
+</p >
 
 </div>
             </section>

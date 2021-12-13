@@ -24,7 +24,7 @@
 <meta name="author" content="Daoxing Zhang &amp; Siqi He" />
 
 
-<meta name="date" content="2021-11-18" />
+<meta name="date" content="2021-12-13" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -73,7 +73,11 @@
 <li><a href="./">LOLAnalysis</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#background-information"><i class="fa fa-check"></i><b>1.1</b> Background Information</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#interested-topics"><i class="fa fa-check"></i><b>1.2</b> Interested Topics</a></li>
+</ul></li>
 <li class="chapter" data-level="2" data-path="data-sources.html"><a href="data-sources.html"><i class="fa fa-check"></i><b>2</b> Data sources</a></li>
 <li class="chapter" data-level="3" data-path="data-transformation.html"><a href="data-transformation.html"><i class="fa fa-check"></i><b>3</b> Data transformation</a></li>
 <li class="chapter" data-level="4" data-path="missing-values.html"><a href="missing-values.html"><i class="fa fa-check"></i><b>4</b> Missing values</a>
@@ -82,7 +86,15 @@
 <li class="chapter" data-level="4.2" data-path="missing-values.html"><a href="missing-values.html#data-resource"><i class="fa fa-check"></i><b>4.2</b> Data Resource</a></li>
 <li class="chapter" data-level="4.3" data-path="missing-values.html"><a href="missing-values.html#missing-patterns"><i class="fa fa-check"></i><b>4.3</b> Missing Patterns</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a></li>
+<li class="chapter" data-level="5" data-path="results.html"><a href="results.html"><i class="fa fa-check"></i><b>5</b> Results</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="results.html"><a href="results.html#influence-of-gold-efficiency-to-winning-rate"><i class="fa fa-check"></i><b>5.1</b> Influence of Gold Efficiency to Winning Rate</a></li>
+<li class="chapter" data-level="5.2" data-path="results.html"><a href="results.html#influence-of-vision-control-to-winning-rate"><i class="fa fa-check"></i><b>5.2</b> Influence of Vision Control to Winning Rate</a></li>
+<li class="chapter" data-level="5.3" data-path="results.html"><a href="results.html#influence-of-objects-control-to-winning-rate"><i class="fa fa-check"></i><b>5.3</b> Influence of Objects Control to Winning Rate</a></li>
+<li class="chapter" data-level="5.4" data-path="results.html"><a href="results.html#influence-of-gaming-strategy-to-winning-rate"><i class="fa fa-check"></i><b>5.4</b> Influence of Gaming Strategy to Winning Rate</a></li>
+<li class="chapter" data-level="5.5" data-path="results.html"><a href="results.html#influence-of-players-to-winning-rate"><i class="fa fa-check"></i><b>5.5</b> Influence of Players to Winning Rate</a></li>
+<li class="chapter" data-level="5.6" data-path="results.html"><a href="results.html#correlation-of-different-variables"><i class="fa fa-check"></i><b>5.6</b> Correlation of Different Variables</a></li>
+</ul></li>
 <li class="chapter" data-level="6" data-path="interactive-component.html"><a href="interactive-component.html"><i class="fa fa-check"></i><b>6</b> Interactive component</a></li>
 <li class="chapter" data-level="7" data-path="conclusion.html"><a href="conclusion.html"><i class="fa fa-check"></i><b>7</b> Conclusion</a></li>
 <li class="divider"></li>
@@ -107,11 +119,38 @@
 <div id="header">
 <h1 class="title">LOLAnalysis</h1>
 <p class="author"><em>Daoxing Zhang &amp; Siqi He</em></p>
-<p class="date"><em>2021-11-18</em></p>
+<p class="date"><em>2021-12-13</em></p>
 </div>
 <div id="introduction" class="section level1" number="1">
 <h1><span class="header-section-number">Chapter 1</span> Introduction</h1>
+<div id="background-information" class="section level2" number="1.1">
+<h2><span class="header-section-number">1.1</span> Background Information</h2>
+<p>Let’s first introduce what is <strong><em>League of Legends</em></strong>. <strong><em>League of Legends</em></strong>, published in 2009, is a team-oriented strategy video game developed by Riot Games. The goal is to work together with your teammates to bring down the enemy nexus located in the middle of their base before your opponents take down yours. Additionally, before bringing down the enemy nexus, there are some towers that you need to destroy first to access the enemy nexus.</p>
+<p>There are several game modes in <strong><em>League of Legends</em></strong> and we will focus on <strong><em>Summoner’s Rift</em></strong> because most game contests including League of Legends World Championship use this mode. In this mode, in order to bring down the enemy’s nexus, a team of five champions (summoned by players) will classically split into four small parties, which are three parties of one single champion and one party of two champions. There are three lanes and one jungle.</p>
+<ul>
+<li>One champion will traverse down the top line, which will be called top in the following context.</li>
+<li>One champion will traverse down the middle line, which will be called mid in the following context.</li>
+<li>Two champions will traverse down the bottom line, which will be called bot in the following context.</li>
+<li>The last champion will go into the jungle, which will be called jug in the following context.</li>
+</ul>
+<p>Normally, this partition is the same for the enemy team.</p>
+</div>
+<div id="interested-topics" class="section level2" number="1.2">
+<h2><span class="header-section-number">1.2</span> Interested Topics</h2>
+<p>We are interested in which aspects of a game have greater influences on winning. More precisely, we are curious about</p>
+<ul>
+<li>How team’s gold efficiency, vision control, objects control, and gaming strategy impact winning rate. In addition, how players influence gold efficiency and vision control.</li>
+<li>Besides gold efficiency and vision control, which aspects of a player influence team’s wining rate the most.</li>
+</ul>
+<p>To answer these questions, we focus on the results of <strong><em>League of Legends World Championship 2021</em></strong>. Before that, let us explain some terms here.</p>
+<ul>
+<li><strong>Gold Efficiency</strong>: Collection of gold. There are several ways to earn gold including kill minions, monsters and enemy champions. Therefore, we can analyze minion killed per minute, gold per minute, gold differential per minute and so on to see whether a gold efficient team is easier to win.</li>
+<li><strong>Vision Control</strong>: Control of wards and vision wards. The map of <em>Summoner’s Rift</em> is invisible when champions are not within a certain range. However, wards and vision wards can be placed to make one area visible to ally team. We wonder how wards and vision wards influence wining rate.</li>
+<li><strong>Objects Control</strong>: Control of jungle monsters including Dragons, Rift Herald and Nash Baron. Different monsters have different effect to champions or to the team. We wonder how theses monsters impact a game.</li>
+<li><strong>Gaming Strategy</strong>: More fights or less fights. We will use kills per game, deathes per game, first blood rate, first tower rate and so on to see how blood degree of a team(fights frequency) affect a game.</li>
+</ul>
 
+</div>
 </div>
             </section>
 

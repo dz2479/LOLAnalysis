@@ -1,4 +1,6 @@
 introduction
+background-information
+interested-topics
 data-sources
 data-transformation
 missing-values
@@ -6,5 +8,11 @@ description
 data-resource
 missing-patterns
 results
+influence-of-gold-efficiency-to-winning-rate
+influence-of-vision-control-to-winning-rate
+influence-of-objects-control-to-winning-rate
+influence-of-gaming-strategy-to-winning-rate
+influence-of-players-to-winning-rate
+correlation-of-different-variables
 interactive-component
 conclusion

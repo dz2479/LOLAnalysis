@@ -6,4 +6,29 @@ site: bookdown::bookdown_site
 ---
 
 # Introduction
+## Background Information
+  Let's first introduce what is ***League of Legends***. ***League of Legends***, published in 2009, is a team-oriented strategy video game developed by Riot Games. The goal is to work together with your teammates to bring down the enemy nexus located in the middle of their base before your opponents take down yours. Additionally, before bringing down the enemy nexus, there are some towers that you need to destroy first to access the enemy nexus. 
+  
+  There are several game modes in ***League of Legends*** and we will focus on ***Summoner's Rift*** because most game contests including League of Legends World Championship use this mode. In this mode, in order to bring down the enemy's nexus, a team of five champions (summoned by players) will classically split into four small parties, which are three parties of one single champion and one party of two champions. There are three lanes and one jungle. 
+  
+* One champion will traverse down the top line, which will be called top in the following context. 
+* One champion will traverse down the middle line, which will be called mid in the following context. 
+* Two champions will traverse down the bottom line, which will be called bot in the following context. 
+* The last champion will go into the jungle, which will be called jug in the following context.
+
+Normally, this partition is the same for the enemy team. 
+
+## Interested Topics
+We are interested in which aspects of a game have greater influences on winning. More precisely, we are curious about 
+
+* How team's gold efficiency, vision control, objects control, and gaming strategy impact winning rate. In addition, how players influence gold efficiency and vision control.
+* Besides gold efficiency and vision control, which aspects of a player influence team's wining rate the most.
+
+To answer these questions, we focus on the results of ***League of Legends World Championship 2021***. Before that, let us explain some terms here.
+
+* **Gold Efficiency**: Collection of gold. There are several ways to earn gold including kill minions, monsters and enemy champions. Therefore, we can analyze minion killed per minute, gold per minute, gold differential per minute and so on to see whether a gold efficient team is easier to win.
+* **Vision Control**: Control of wards and vision wards. The map of *Summoner's Rift* is invisible when champions are not within a certain range. However, wards and vision wards can be placed to make one area visible to ally team. We wonder how wards and vision wards influence wining rate.
+* **Objects Control**: Control of jungle monsters including Dragons, Rift Herald and Nash Baron. Different monsters have different effect to champions or to the team. We wonder how theses monsters impact a game.
+* **Gaming Strategy**: More fights or less fights. We will use kills per game, deathes per game, first blood rate, first tower rate and so on to see how blood degree of a team(fights frequency) affect a game.
+
 
