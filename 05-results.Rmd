@@ -24,6 +24,7 @@ for(i in 1:nrow(team_stats_comp)){
   time = str_split(team_stats_comp[i,8], ":")[[1]]
   team_stats_comp[i,8] = round((as.numeric(time[1])+as.numeric(time[2])/60), digits = 2)
 }
+team_stats_comp$Game.duration = as.numeric(team_stats_comp$Game.duration)
 team_stats_comp$Win.rate = as.numeric(gsub("[\\%,]","",team_stats_comp$Win.rate))/100
 ```
 
@@ -434,6 +435,7 @@ After some analysis of our datasets, we conclude that
 When analyzing our datasets, we noticed some other interesting points. Let's take a look at the following graph.
 
 ```{r}
+corr = round(cor(team_stats_comp[6:dim(team_stats_comp)[2]-1]),1)
 ggcorrplot(corr,tl.cex=8,hc.order = TRUE,
            type = "lower",
            outline.color = "white")

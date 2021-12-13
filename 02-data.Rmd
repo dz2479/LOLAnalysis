@@ -1,5 +1,14 @@
 # Data sources
 
+```{r}
+library(dplyr)
+library(ggplot2)
+library(stringr)
+library(patchwork)
+library(ggcorrplot)
+```
+
+
 The data we use can be directly copied from https://gol.gg/esports/home/ in table form. Since we decided to analyze the team from several aspects, we reorganized the data and categorized columns into different datasets in order to generate desired graphs. We separated the data into five csv files, which are "./data/team_stats.csv", "./data/top_stats.csv", "./data//jug_stats.csv", "./data//mid_stats.csv", "./data//bot_stats.csv", "./data//sup_stats.csv". However, these files do not contain player-team belongings. So we copied player-team belongings data from https://www.wanplus.com/lol/playerstats and seperated into five csv files, which are "./data//top_team.csv", "./data//jug_team.csv", "./data//mid_team.csv", "./data//bot_team.csv", "./data//sup_team.csv". For each of above files, there are 16 data rows except top ones(it has 17 rows because GENG has two tops). Let's then explain some variables:
 
 ## Team Stats

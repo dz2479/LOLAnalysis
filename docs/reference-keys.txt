@@ -4,7 +4,7 @@ interested-topics
 data-sources
 team-stats
 player-stats
-limitations
+data-limitations
 data-transformation
 missing-values
 description
