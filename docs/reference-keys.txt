@@ -2,6 +2,9 @@ introduction
 background-information
 interested-topics
 data-sources
+team-stats
+player-stats
+limitations
 data-transformation
 missing-values
 description

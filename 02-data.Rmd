@@ -1,2 +1,47 @@
 # Data sources
 
+The data we use can be directly copied from https://gol.gg/esports/home/ in table form. Since we decided to analyze the team from several aspects, we reorganized the data and categorized columns into different datasets in order to generate desired graphs. We separated the data into five csv files, which are "./data/team_stats.csv", "./data/top_stats.csv", "./data//jug_stats.csv", "./data//mid_stats.csv", "./data//bot_stats.csv", "./data//sup_stats.csv". However, these files do not contain player-team belongings. So we copied player-team belongings data from https://www.wanplus.com/lol/playerstats and seperated into five csv files, which are "./data//top_team.csv", "./data//jug_team.csv", "./data//mid_team.csv", "./data//bot_team.csv", "./data//sup_team.csv". For each of above files, there are 16 data rows except top ones(it has 17 rows because GENG has two tops). Let's then explain some variables:
+
+## Team Stats
+* K.D: Kill to Death ratio
+* GPM: Gold per minute
+* GDM: Gold differential per minute
+* FB.: First blood rate
+* FT.: First tower rate
+* DRAPG: Dragon killed per game
+* DRA.: Dragon control rate
+* HERPG: Rift Herald killed per game
+* HER.: Rift Herald control rate
+* DRA.15: Average dragons at 15 min
+* TD.15: Tower differential at 15 min
+* GD.15: Gold differential at 15 min
+* NASHPG: Baron Nashor killed per game
+* NASH.: Baron Nashor control rate
+* CSM: creeps per minute
+* DPM: damage to champions per minute
+* WPM: Wards per minute
+* VWPM: Vision Wards per minute
+* WCPM: Wards cleared per minute
+
+## Player Stats
+* KDA: (Kill+Assist)/Death
+* CSM: Average CS per minute per game
+* GPM: Average Gold per minute per game
+* KP.: Average Kill Participation per game
+* DMG.: Average share of team's damage to champions per game
+* DPM: Average damage to champions per minute per game
+* VSPM: Average vision score per minute per game
+* Avg.WPM: Average Wards per minute per game
+* Avg.WCPM: Average Wards cleaered per minute per game
+* Avg.VWPM: Average Vision Wards per minute per game
+* GD.15:Average Gold Differential at 15 min
+* CSD.15: Average CS Differential at 15 min
+* XPD.15:Average XP Differential at 15 min
+* FB..: Firstblood participation (kill or assist) 
+* FB.Victim: Firstblood  victim percent
+
+
+## Data Limitations
+There is one limitation of our data. The version of ***League of Legends*** is constantly changing, so the winning strategy for each version is different. The conclusions we got in this project may not be applicable to other versions.
+
+
