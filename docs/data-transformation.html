@@ -118,8 +118,64 @@
             <section class="normal" id="section-">
 <div id="data-transformation" class="section level1" number="3">
 <h1><span class="header-section-number">Chapter 3</span> Data transformation</h1>
-<p>The data we use can be directly copied from <a href="https://gol.gg/esports/home/" class="uri">https://gol.gg/esports/home/</a> in table form. Since we decided to analyze the team from several aspects, we reorganized the data and categorized columns into different datasets in order to generate desired graphs.</p>
-<p>When data was read into R, some data type are all characters. Therefore, we converted data type to the correct one. For better analysis, we transformed variable “Game.Duration” from character to numeric format. Besides, some data ends with % notation. So we removed %, converted it into numeric value and then divide it by 100.</p>
+<p>Based on data copied from data sources, we can read it into our project with R function read.csv(). We first read team statistics and rename the team abbreviation. Samples below:</p>
+<pre><code>##  [1] &quot;100T&quot; &quot;C9&quot;   &quot;DFM&quot;  &quot;DK&quot;   &quot;EDG&quot;  &quot;FNC&quot;  &quot;FPX&quot;  &quot;GENG&quot; &quot;HLE&quot;  &quot;LNG&quot;  &quot;MAD&quot;  &quot;PSG&quot;  &quot;RGE&quot;  &quot;RNG&quot;  &quot;T1&quot;  
+## [16] &quot;TL&quot;</code></pre>
+<p>Then we merge teams’ rank into team stats. Samples below:</p>
+<pre><code>##    Name rank
+## 1  100T   16
+## 2    C9    8
+## 3   DFM   16
+## 4    DK    2
+## 5   EDG    1
+## 6   FNC   16
+## 7   FPX   16
+## 8  GENG    4
+## 9   HLE    8
+## 10  LNG   16
+## 11  MAD    8
+## 12  PSG   16
+## 13  RGE   16
+## 14  RNG    8
+## 15   T1    4
+## 16   TL   16</code></pre>
+<p>When data was read into R, some data type are all characters. Therefore, we converted data type to the correct one. For better analysis, we transformed variable “Game.Duration” from character to numeric format. Besides, some data ends with % notation. So we removed %, converted it into numeric value. Additionally, there is one column called Region and one value of it is NA, which stands for North America. However, R will count it as unavailable values. Therefore, we transformed this kind of value to NA(North America). Here are samples of our transformed data:</p>
+<pre><code>##    Name Region Game.duration
+## 1  100T     NA         34.68
+## 2    C9     NA         35.05
+## 3   DFM     JP         31.22
+## 4    DK     KR         34.67
+## 5   EDG     CN         32.73
+## 6   FNC    EUW         37.68
+## 7   FPX     CN         33.43
+## 8  GENG     KR         36.07
+## 9   HLE     KR         35.67
+## 10  LNG     CN         31.67
+## 11  MAD    EUW         37.07
+## 12  PSG    PCS         36.78
+## 13  RGE    EUW            37
+## 14  RNG     CN         34.28
+## 15   T1     KR         31.03
+## 16   TL     NA         33.42</code></pre>
+<p>Then we read players’ data into our project but our data does not bind players to their belonging teams. So we add that to our players’ data. Other players’ data transformations are almost the same as the transformations of teams’ data. Here are samples of our transformed data:</p>
+<pre><code>##     Player Team Win.rate
+## 1     Adam  PSG    0.167
+## 2      Ale   T1    0.429
+## 3  Alphari  RNG    0.429
+## 4    Armut   DK    0.364
+## 5   Burdol 100T    0.667
+## 6    Canna  EDG    0.714
+## 7      Evi   C9    0.000
+## 8  Flandre GENG    0.619
+## 9    Fudge  LNG    0.300
+## 10  Hanabi  HLE    0.500
+## 11    Khan   TL    0.737
+## 12  Morgan  MAD    0.400
+## 13  Nuguri  RGE    0.286
+## 14 Odoamne  FNC    0.375
+## 15  Rascal  FPX    0.615
+## 16 Ssumday GENG    0.500
+## 17  Xiaohu  DFM    0.583</code></pre>
 
 </div>
             </section>

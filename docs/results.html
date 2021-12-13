@@ -127,9 +127,10 @@
 <li>CSM: creeps per minute</li>
 </ul>
 <p>to measure gold efficiency.</p>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
-<p>This graph is ordered by winning rates, in which top teams have higher winning rate(all bar charts below have same name order). From the above graph, we noticed that GPM and GD.15 are very important to a team’s winning rate because teams with highest winning rate including DK, T1, GENG, EDG, RNG all have high GPM and GD.15. DFM has the lowest GPM and GD.15 so we now know why it has the lowest winning rate. Surprisingly, CSM does not have much impact to winning rate because we thought it might be important because it is one source of gold. Now, let’s look at how player’s GPM and GD.15 influence team’s GPM and GD.15</p>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
+<p>This graph is ordered by winning rates, in which top teams have higher winning rate(all bar charts below have same name order). We normalized the data for better view of some differences between each team.
+From the above graph, we noticed that GPM and GD.15 are very important to a team’s winning rate because teams with highest winning rate including DK, T1, GENG, EDG, RNG all have high GPM and GD.15. DFM has the lowest GPM and GD.15 so we now know why it has the lowest winning rate.</p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
 <p>From this graph, we noticed that the contribution to team’s GD.15 of five positions does not have a common pattern for all teams. Therefore, we cannot tell which position contributes most but there are some features for some teams. For example, for teams like PSG and 100T, their GD.15 comes most from <em>bot</em> and <em>top</em>. For teams like FPX, MAD, HLE, and T1, their GD.15 comes least from <em>jug</em>.</p>
 <p>On the other hand, the contribution to team’s GPM of five positions does have a common pattern for all teams. We can see that GPM comes least from sup. For rest positions, it’s about the same. We can conclude all team members are important to the team.</p>
 <p>In general, GD.15 and GPM are really important to teams’ winning rate. Different player contributes differently to GD.15 but contributes almost same to GPM(equally important).</p>
@@ -143,9 +144,9 @@
 <li>WCPM: Wards cleared per minute</li>
 </ul>
 <p>to measure vision control as described in introduction.</p>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
-<p>From the above graph, we can see that DK that has the highest winning rate controls vision very great. We also noticed that from the last two graphs that LCK teams(teams from Korean, colored green) has the best vision control than all other teams. From these three graphs, we cannot tell vision control plays a crucial role in winning rate. However, let’s still look at the contribution to vision control of different positions.</p>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
+<p>From the above graph, we can see that DK which has the highest winning rate controls vision very great. We also found one fact that LCK teams has the best vision control among all other teams: all four teams from Korean has positive vision scores. From these three graphs, we cannot tell vision control plays a crucial role in winning rate. However, let’s still look at the contribution to vision control of different positions.</p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
 <p>From above graphs, we can clearly see that <em>sup</em> contributes most to team’s vision control in all three WPM, VWPM, and WCPM. The second is <em>jug</em>.</p>
 </div>
 <div id="influence-of-objects-control-to-winning-rate" class="section level2" number="5.3">
@@ -160,8 +161,8 @@
 <li>HER.: Rift Herald control percent</li>
 </ul>
 <p>to measure objects control. The reason for choosing these three monsters is that they often provoke fights between two teams. We want to know why the two teams compete for those monsters.</p>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-20-1.png" width="672" /></p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
 <p>As a result, from the above six graphs, we can conclude that controlling more Dragons and Nash Barons is crucial in winning a game. The top 5 winning teams have high controls of Dragon and Nash Baron while the bot 5 winning teams always lose them. However, it is not obvious that controlling more Rift Herald will make one team easier to win. Teams like HLE, MAD, C9, FPX and FNC controls lots of Rift Herald but they have relatively low wining rate.</p>
 </div>
 <div id="influence-of-gaming-strategy-to-winning-rate" class="section level2" number="5.4">
@@ -176,17 +177,17 @@
 <li>FT.: First tower rate</li>
 </ul>
 <p>For above variables, the higher they are, the bloody a team is</p>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
 <p>This graph is ordered by winning rate, in which left teams have higher winning rate(same for all line graphs below). From kills and deaths perspective, except FNC, all other teams have almost same kills and deaths. Additionally, their first blood rate does not differ much. Therefore, the degree of blood of different teams from this view is about the same. However, this graph shows that if one team have less deaths, they will be easier to win.</p>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-20-1.png" width="672" /></p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
 <p>From towers killed and lost perspective, if one team has more towers killed, higher first tower rate, and less towers lost, it will have a higher winning rate. Therefore, combined with kills and deaths perspective, if a team is more defensive, which means that they have less deaths and lose less towers, they gain victory easier.</p>
 </div>
 <div id="influence-of-players-to-winning-rate" class="section level2" number="5.5">
 <h2><span class="header-section-number">5.5</span> Influence of Players to Winning Rate</h2>
 <p>For this analysis, we want to know how each postion, i.e., <em>top</em>, <em>jug</em>, <em>mid</em>, <em>bot</em>, and <em>sup</em> influence teams’ winning rate.</p>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-24-1.png" width="672" /></p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-25-1.png" width="672" /></p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-26-1.png" width="672" /></p>
 <p>From the above five graphs, we can notice that, besides gold efficiency and vision control, KDA and first blood rate is important to players. To summarize, to help team win a game, the most crucial thing for a player is to farm well and get a higher KDA. If all five players can have a better gold efficiency and higher KDA, their team is one step away from victory.</p>
 </div>
 <div id="correlation-of-different-variables" class="section level2" number="5.6">
@@ -197,7 +198,7 @@
 <li>Besides gold efficiency, even though vision control does not help team a lot, players should farm well and still controls it’s line’s vision to get a better wining rate.</li>
 </ul>
 <p>When analyzing our datasets, we noticed some other interesting points. Let’s take a look at the following graph.</p>
-<p><img src="finalproj_files/figure-html/unnamed-chunk-24-1.png" width="672" /></p>
+<p><img src="finalproj_files/figure-html/unnamed-chunk-27-1.png" width="672" /></p>
 <p>If we can have better gold efficiency, we will control more visions and kill more towers. With better vision controls and more towers killed, we will control more Dragons and more Nash Barons. As a result, we will have a higher probability to win.</p>
 
 </div>

@@ -111,14 +111,17 @@ to measure gold efficiency.
 gold_dat = team_stats_comp[,c("Name","Win.rate","GPM","GD.15","CSM")]
 gold_dat <- gold_dat %>% mutate_each_(list(~scale(.) %>% as.vector),
                                   vars = c("GPM","GD.15","CSM"))
-gold_bar1 = ggplot(gold_dat, aes(x=reorder(Name,Win.rate),y=GPM)) + geom_bar(stat="identity") + xlab("Team Names") + coord_flip()
+gold_bar1 = ggplot(gold_dat, aes(x=reorder(Name,Win.rate),y=GPM)) + geom_bar(stat="identity")+ 
+            xlab("Team Names")+
+  theme(axis.ticks.y = element_blank(), axis.text.y = element_blank(), axis.title.y=element_blank())+ 
+  coord_flip()
 gold_bar2 = ggplot(gold_dat, aes(x=reorder(Name,Win.rate),y=GD.15)) + geom_bar(stat="identity") + xlab("Team Names") + coord_flip()
-gold_bar3 = ggplot(gold_dat, aes(x=reorder(Name,Win.rate),y=CSM)) + geom_bar(stat="identity") + xlab("Team Names") + coord_flip()
 
-gold_bar2+gold_bar1+gold_bar3+plot_layout(widths=3,heights=1)
+gold_bar2+gold_bar1+plot_layout(widths=2,heights=1)
 ```
 
-This graph is ordered by winning rates, in which top teams have higher winning rate(all bar charts below have same name order). From the above graph, we noticed that GPM and GD.15 are very important to a team's winning rate because teams with highest winning rate including DK, T1, GENG, EDG, RNG all have high GPM and GD.15. DFM has the lowest GPM and GD.15 so we now know why it has the lowest winning rate. Surprisingly, CSM does not have much impact to winning rate because we thought it might be important because it is one source of gold. Now, let's look at how player's GPM and GD.15 influence team's GPM and GD.15
+This graph is ordered by winning rates, in which top teams have higher winning rate(all bar charts below have same name order). We normalized the data for better view of some differences between each team.
+From the above graph, we noticed that GPM and GD.15 are very important to a team's winning rate because teams with highest winning rate including DK, T1, GENG, EDG, RNG all have high GPM and GD.15. DFM has the lowest GPM and GD.15 so we now know why it has the lowest winning rate. 
 
 ```{r}
 teams = rep(team_stats_comp$Name, each = 5)
@@ -166,9 +169,13 @@ for(i in 1:length(team_stats_comp$Name)){
 
 data = data.frame(teams,roles,rate,GD.15,GPM)
 p1 = ggplot(data, aes(fill=roles, y=GD.15, x=reorder(teams,rate))) + xlab("Teams") +
-    geom_bar(position="stack", stat="identity")+coord_flip()
+     geom_bar(position="stack", stat="identity")+
+     theme(legend.position = "none")+
+     coord_flip()
 p2 = ggplot(data, aes(fill=roles, y=GPM, x=reorder(teams,rate))) + xlab("Teams") +
-    geom_bar(position="stack", stat="identity")+coord_flip()
+    geom_bar(position="stack", stat="identity")+
+  theme(axis.ticks.y = element_blank(), axis.text.y = element_blank(), axis.title.y=element_blank())+
+  coord_flip()
 p1+p2+plot_layout(widths=2,heights=1)
 ```
 
@@ -194,14 +201,20 @@ library(patchwork)
 vision_dat = team_stats_comp[,c("Name","Win.rate","WPM","VWPM","WCPM","Region")]
 vision_dat <- vision_dat %>% mutate_each_(list(~scale(.) %>% as.vector),
                                   vars = c("WPM","VWPM","WCPM"))
-vision_bar1 = ggplot(vision_dat, aes(x=reorder(Name,Win.rate),y=WPM, fill = Region)) + geom_bar(stat="identity") +  coord_flip() + theme(legend.position = "none")
-vision_bar2 = ggplot(vision_dat, aes(x=reorder(Name,Win.rate),y=VWPM, fill = Region)) + geom_bar(stat="identity") + coord_flip() + theme(legend.position = "none")
-vision_bar3 = ggplot(vision_dat, aes(x=reorder(Name,Win.rate),y=WCPM, fill = Region)) + geom_bar(stat="identity") + coord_flip() + theme(legend.position = "none")
+vision_bar1 = ggplot(vision_dat, aes(x=reorder(Name,Win.rate),y=WPM, fill = Region)) + xlab("Teams")+ geom_bar(stat="identity")+ coord_flip() + theme(legend.position = "none")
+
+vision_bar2 = ggplot(vision_dat, aes(x=reorder(Name,Win.rate),y=VWPM, fill = Region)) + geom_bar(stat="identity")+ 
+  theme(axis.ticks.y = element_blank(), axis.text.y = element_blank(), axis.title.y=element_blank())+
+  coord_flip() + theme(legend.position = "none")
+
+vision_bar3 = ggplot(vision_dat, aes(x=reorder(Name,Win.rate),y=WCPM, fill = Region)) + geom_bar(stat="identity")+
+  theme(axis.ticks.y = element_blank(), axis.text.y = element_blank(), axis.title.y=element_blank())+
+  coord_flip()
 
 vision_bar1+vision_bar2+vision_bar3+plot_layout(widths=3,heights=1)
 ```
 
-From the above graph, we can see that DK that has the highest winning rate controls vision very great. We also noticed that from the last two graphs that LCK teams(teams from Korean, colored green) has the best vision control than all other teams. From these three graphs, we cannot tell vision control plays a crucial role in winning rate. However, let's still look at the contribution to vision control of different positions. 
+From the above graph, we can see that DK which has the highest winning rate controls vision very great. We also found one fact that LCK teams has the best vision control among all other teams: all four teams from Korean has positive vision scores. From these three graphs, we cannot tell vision control plays a crucial role in winning rate. However, let's still look at the contribution to vision control of different positions. 
 
 ```{r}
 teams = rep(team_stats_comp$Name, each = 5)
@@ -261,13 +274,15 @@ data = data.frame(teams,roles,rate,WPM,VWPM,WCPM)
 p1 = ggplot(data, aes(fill=roles, y=WPM, x=reorder(teams,rate))) + xlab("Teams") +
     geom_bar(position="stack", stat="identity")+coord_flip() + theme(legend.position = "none")
 p2 = ggplot(data, aes(fill=roles, y=VWPM, x=reorder(teams,rate))) + xlab("Teams") +
-    geom_bar(position="stack", stat="identity")+coord_flip() + theme(legend.position = "none")
+    geom_bar(position="stack", stat="identity")+coord_flip() + 
+  theme(legend.position = "none",axis.ticks.y = element_blank(), axis.text.y = element_blank(), axis.title.y=element_blank())
 p3 = ggplot(data, aes(fill=roles, y=WCPM, x=reorder(teams,rate))) + xlab("Teams") +
-    geom_bar(position="stack", stat="identity")+coord_flip()
+    geom_bar(position="stack", stat="identity")+coord_flip()+theme(axis.ticks.y = element_blank(), axis.text.y = element_blank(), axis.title.y=element_blank())
 p1+p2+p3+plot_layout(widths=3,heights=1)
 ```
 
 From above graphs, we can clearly see that *sup* contributes most to team's vision control in all three WPM, VWPM, and WCPM. The second is *jug*. 
+
 
 ## Influence of Objects Control to Winning Rate
 For this analysis, we will use
@@ -288,17 +303,17 @@ jug_dat <- jug_dat %>% mutate_each_(list(~scale(.) %>% as.vector),
                                   vars = c("DRAPG","DRA.","HERPG","HER.","NASHPG","NASH."))
 jug_bar1 = ggplot(jug_dat, aes(x=reorder(Name,Win.rate),y=DRAPG)) + geom_bar(stat="identity") + coord_flip()+ xlab("Teams")
 
-jug_bar3 = ggplot(jug_dat, aes(x=reorder(Name,Win.rate),y=HERPG)) + geom_bar(stat="identity") + coord_flip()+ xlab("Teams")
+jug_bar3 = ggplot(jug_dat, aes(x=reorder(Name,Win.rate),y=HERPG)) + geom_bar(stat="identity") + coord_flip()+ xlab("Teams")+theme(axis.ticks.y = element_blank(), axis.text.y = element_blank(), axis.title.y=element_blank())
 
-jug_bar5 = ggplot(jug_dat, aes(x=reorder(Name,Win.rate),y=NASHPG)) + geom_bar(stat="identity") + coord_flip()+ xlab("Teams")
+jug_bar5 = ggplot(jug_dat, aes(x=reorder(Name,Win.rate),y=NASHPG)) + geom_bar(stat="identity") + coord_flip()+ xlab("Teams")+theme(axis.ticks.y = element_blank(), axis.text.y = element_blank(), axis.title.y=element_blank())
 
 jug_bar1+jug_bar5+jug_bar3+plot_layout(widths=3,heights=1)
 ```
 
 ```{r}
 jug_bar2 = ggplot(jug_dat, aes(x=reorder(Name,Win.rate),y=DRA.)) + geom_bar(stat="identity") + coord_flip()+ xlab("Teams")
-jug_bar4 = ggplot(jug_dat, aes(x=reorder(Name,Win.rate),y=HER.)) + geom_bar(stat="identity") + coord_flip()+ xlab("Teams")
-jug_bar6 = ggplot(jug_dat, aes(x=reorder(Name,Win.rate),y=NASH.)) + geom_bar(stat="identity") + coord_flip()+ xlab("Teams")
+jug_bar4 = ggplot(jug_dat, aes(x=reorder(Name,Win.rate),y=HER.)) + geom_bar(stat="identity") + coord_flip()+ xlab("Teams")+theme(axis.ticks.y = element_blank(), axis.text.y = element_blank(), axis.title.y=element_blank())
+jug_bar6 = ggplot(jug_dat, aes(x=reorder(Name,Win.rate),y=NASH.)) + geom_bar(stat="identity") + coord_flip()+ xlab("Teams")+theme(axis.ticks.y = element_blank(), axis.text.y = element_blank(), axis.title.y=element_blank())
 jug_bar2+jug_bar6+jug_bar4+plot_layout(widths=3,heights=1)
 ```
 

@@ -124,20 +124,38 @@
 Id Attributes
 </title>
 <style>  
-        #GPM { 
+         #KD { 
+            color:black; 
+            font-size:14px; 
+            font-weight:bold; 
+            text-align:center; 
+         }         
+         #GDR { 
+            color:black; 
+            font-size:14px; 
+            font-weight:bold; 
+            text-align:center; 
+         }
+         #DPM { 
             color:black; 
             font-size:14px; 
             font-weight:bold; 
             text-align:center; 
          } 
-         #GDM { 
+         #CSM { 
+            color:black; 
+            font-size:14px; 
+            font-weight:bold; 
+            text-align:center; 
+         } 
+         #RANK { 
             color:black; 
             font-size:14px; 
             font-weight:bold; 
             text-align:center; 
          }
          
- 
+    
 
     </style>
 </head>
@@ -146,26 +164,41 @@ Id Attributes
 </div>
 <p style="font-size: 24px" class="fancy">
 Choose your interested team stats
-</p >
-<p id="GPM">
+</p>
+<p id="KD">
 <button type="button">
-GPM
+KD
 </button>
-</p >
-<p id="GDM">
+</p>
+<p id="GDR">
 <button type="button">
-GDM
+GDR
 </button>
-</p >
+</p>
+<p id="DPM">
+<button type="button">
+DPM
+</button>
+</p>
+<p id="CSM">
+<button type="button">
+CSM
+</button>
+</p>
+<p id="RANK">
+<button type="button">
+RANK
+</button>
+</p>
 <script>
-  var w = 700;
+ var w = 700;
   var h = 400;
   var margin = {top: 80, right: 0, bottom: 25,
       left: 50};
   var innerWidth = w - margin.left - margin.right;
   var innerHeight = h - margin.top - margin.bottom;
 
-  var bardata = [1691,1762,1533,1835,1807,1756,1703,1798,1734,1757,1778,1746,1752,1807,1848,1735];
+  var bardata = [0.45, 0.56, 0.57, 0.83, 0.82, 0.91, 0.92, 0.84, 1.19, 0.94, 1.21, 1.16, 1.15, 1.1, 1.62, 1.53];
   
 
   var xScale = d3.scaleBand()
@@ -179,10 +212,10 @@ GDM
 
   var xAxis = d3.axisBottom()
       .scale(xScale)
-      .tickFormat((d, i) => ["100T","C9","DFM","DK","EDG","FNC","FPX","GENG","HLE","LNG","MAD","PSG","RGE","RNG","T1","TL" ][i]);
+      .tickFormat((d, i) => ["DFM","FNC","FPX","C9","MAD","RGE","HLE","LNG","TL","100T","PSG","RNG","EDG","GENG","T1","DK" ][i]);
 
   var yAxis = d3.axisLeft()
-        .scale(yScale);
+            .scale(yScale);
 
 // add svg
 
@@ -213,7 +246,7 @@ GDM
       .attr("y", d => yScale(d))
       .attr("width", xScale.bandwidth())
       .attr("height", d => innerHeight - yScale(d))
-      .attr("fill", "green");
+      .attr("fill", "lightblue");
 
 // add axes
 
@@ -239,6 +272,7 @@ GDM
 // General Update Pattern
   function update(data) {
       xScale.domain(d3.range(data.length));
+
       yScale.domain([0, d3.max(data)]);
 
       var bars = svg.select("g")
@@ -260,7 +294,7 @@ GDM
           .attr("y", d => yScale(d))
           .attr("width", xScale.bandwidth())
           .attr("height", d => innerHeight - yScale(d));
- 
+    
 
       bars.exit().remove();
 
@@ -281,21 +315,20 @@ GDM
     
   // Interactivity
   
-    d3.selectAll("p").on("click", function() {
+    d3.selectAll("p")
+        .on("click", function() {
 
             var paraID = d3.select(this).attr("id");
 
-            if (paraID == "GPM") {
-                bardata = [1691,1762,1533,1835,1807,1756,1703,1798,1734,1757,1778,1746,1752,1807,1848,1735];}
-     else if (paraID == "GDM") {
-  bardata = [-89,-98,-447,150,105,-211,-188,48,-37,-5,-52,-59,-81,40,212,-73];}
-     else if (paraID == "nonDurableGoods") {
-  bardata = [1531,1292,1092,1036,980,909,1005,940];}
-     else if (paraID == "nonFinancial") {
-  bardata = [42416,38646,32890,30650,28567,27450,28311,30539];}
-     else if (paraID == "nonFarm") {
-  bardata = [48548,44499,38067,35716,33404,31870,32639,35394];}
-     else {bardata = [6132,5853,5177,5066,4837,4420,4328,4855];}
+            if (paraID == "KD") {
+              bardata = [0.45, 0.56, 0.57, 0.83, 0.82, 0.91, 0.92, 0.84, 1.19, 0.94, 1.21, 1.16, 1.15, 1.1, 1.62, 1.53];}
+            else if (paraID == "GDR") {
+              bardata = [31.03,31.22,31.67,32.73,33.42,33.43,34.28,34.67,34.68,35.05,35.67,36.07,36.78,37,37.07,37.68 ];}
+            else if (paraID == "DPM") {
+              bardata = [1427, 2164, 1361, 1572, 1856, 1702, 1838, 1648, 1693, 1554, 1914, 1908, 1848, 1756, 1751, 1902];}
+            else if (paraID == "CSM") {
+                  bardata = [30.1,30.5,31,31,31.9,31.9,32,32.1,32.1,32.3,32.7,33.1,33.2,33.3,33.4,33.6 ];}
+                else {bardata = [16,16,16,8,8,16,8,16,16,16,16,8,1,4,4,2];}
 
             update(bardata);
 
@@ -303,9 +336,11 @@ GDM
  
  </script>
 <p>
-The interactive bar graph shows the different team stats in 2022 lol World Championship by teams.
-Click on the buttons.
-</p >
+The interactive bar graph shows the different team stats in 2022 lol World Championship by teams. We select 5 variables:
+KD:Kill/Death, GDRL:Game Duration, DPM: damage to champions per minute, CSM:creeps per minute and Rank. Click on the buttons to see the stats varies.
+</p>
+<p>
+</p>
 
 </div>
             </section>

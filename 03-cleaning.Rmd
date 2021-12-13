@@ -1,5 +1,111 @@
 # Data transformation
 
-The data we use can be directly copied from https://gol.gg/esports/home/ in table form. Since we decided to analyze the team from several aspects, we reorganized the data and categorized columns into different datasets in order to generate desired graphs.
+Based on data copied from data sources, we can read it into our project with R function read.csv(). We first read team statistics and rename the team abbreviation. Samples below:
+```{r}
+team_stats = read.csv("./data/team_stats.csv")
+team_stats_new = team_stats
+team_stats_new$Name=c("100T","C9","DFM","DK","EDG","FNC","FPX","GENG","HLE","LNG","MAD","PSG","RGE","RNG","T1","TL")
+team_stats_new$Name
+```
 
-When data was read into R, some data type are all characters. Therefore, we converted data type to the correct one. For better analysis, we transformed variable “Game.Duration” from character to numeric format. Besides, some data ends with % notation. So we removed %, converted it into numeric value and then divide it by 100. 
+Then we merge teams' rank into team stats. Samples below:
+
+```{r}
+# add rank of each time
+rank = c(1,2,4,4,8,8,8,8,16,16,16,16,16,16,16,16)
+Name = c("EDG","DK","GENG","T1","RNG","C9","HLE","MAD","RGE","FPX","100T","DFM","PSG","FNC","LNG","TL")
+rank.dat = data.frame(Name,rank)
+
+# merge rank to team stats
+team_stats_comp= merge(team_stats_new,rank.dat,by="Name")
+team_stats_comp %>% select(Name, rank)
+```
+
+When data was read into R, some data type are all characters. Therefore, we converted data type to the correct one. For better analysis, we transformed variable “Game.Duration” from character to numeric format. Besides, some data ends with % notation. So we removed %, converted it into numeric value. Additionally, there is one column called Region and one value of it is NA, which stands for North America. However, R will count it as unavailable values. Therefore, we transformed this kind of value to NA(North America). Here are samples of our transformed data:
+
+```{r}
+library(dplyr)
+team_stats_comp[is.na(team_stats_comp)] = "NA"
+team_stats_comp = team_stats_comp %>%
+  select(-Season)
+for(i in 1:nrow(team_stats_comp)){
+  time = str_split(team_stats_comp[i,8], ":")[[1]]
+  team_stats_comp[i,8] = round((as.numeric(time[1])+as.numeric(time[2])/60), digits = 2)
+}
+team_stats_comp$Win.rate = as.numeric(gsub("[\\%,]","",team_stats_comp$Win.rate))/100
+team_stats_comp %>% select(Name, Region, Game.duration)
+```
+Then we read players' data into our project but our data does not bind players to their belonging teams. So we add that to our players' data. Other players' data transformations are almost the same as the transformations of teams' data. Here are samples of our transformed data:
+
+```{r}
+library(stringr)
+# player_stats
+# add each play belongs to which team
+top_stats = read.csv("./data/top_stats.csv")
+top_team = read.csv("./data//top_team.csv")
+top_stats$Player = str_trim(top_stats$Player,side="right")
+top_stats$Player = str_to_title(top_stats$Player) 
+top_team$Player = str_trim(top_stats$Player,side="right")
+top_team$Player = str_to_title(top_stats$Player) 
+top_stats_comp = merge(top_stats,top_team,by="Player")
+top_stats_comp$Win.rate = as.numeric(gsub("[\\%,]","",top_stats_comp$Win.rate))/100
+top_stats_comp$KP. = as.numeric(gsub("[\\%,]","",top_stats_comp$KP.))/100
+top_stats_comp$FB.Victim = as.numeric(gsub("[\\%,]","",top_stats_comp$FB.Victim))/100
+top_stats_comp$FB.. = as.numeric(gsub("[\\%,]","",top_stats_comp$FB..))/100
+top_stats_comp$Solo.Kills = as.numeric(replace(top_stats_comp$Solo.Kills, top_stats_comp$Solo.Kills == "-", 0))
+
+jug_stats = read.csv("./data//jug_stats.csv")
+jug_team = read.csv("./data//jug_team.csv")
+jug_stats$Player = str_trim(jug_stats$Player,side="right")
+jug_stats$Player = str_to_title(jug_stats$Player) 
+jug_team$Player = str_trim(jug_stats$Player,side="right")
+jug_team$Player = str_to_title(jug_stats$Player) 
+jug_stats_comp = merge(jug_stats,jug_team,by="Player")
+jug_stats_comp$Win.rate = as.numeric(gsub("[\\%,]","",jug_stats_comp$Win.rate))/100
+jug_stats_comp$KP. = as.numeric(gsub("[\\%,]","",jug_stats_comp$KP.))/100
+jug_stats_comp$FB.Victim = as.numeric(gsub("[\\%,]","",jug_stats_comp$FB.Victim))/100
+jug_stats_comp$FB.. = as.numeric(gsub("[\\%,]","",jug_stats_comp$FB..))/100
+jug_stats_comp$Solo.Kills = as.numeric(replace(jug_stats_comp$Solo.Kills, jug_stats_comp$Solo.Kills == "-", 0))
+
+mid_stats = read.csv("./data//mid_stats.csv")
+mid_team = read.csv("./data//mid_team.csv")
+mid_stats$Player = str_trim(mid_stats$Player,side="right")
+mid_stats$Player = str_to_title(mid_stats$Player) 
+mid_team$Player = str_trim(mid_stats$Player,side="right")
+mid_team$Player = str_to_title(mid_stats$Player) 
+mid_stats_comp = merge(mid_stats,mid_team,by="Player")
+mid_stats_comp$Win.rate = as.numeric(gsub("[\\%,]","",mid_stats_comp$Win.rate))/100
+mid_stats_comp$KP. = as.numeric(gsub("[\\%,]","",mid_stats_comp$KP.))/100
+mid_stats_comp$FB.Victim = as.numeric(gsub("[\\%,]","",mid_stats_comp$FB.Victim))/100
+mid_stats_comp$FB.. = as.numeric(gsub("[\\%,]","",mid_stats_comp$FB..))/100
+mid_stats_comp$Solo.Kills = as.numeric(replace(mid_stats_comp$Solo.Kills, mid_stats_comp$Solo.Kills == "-", 0))
+
+bot_stats = read.csv("./data//bot_stats.csv")
+bot_team = read.csv("./data//bot_team.csv")
+bot_stats$Player = str_trim(bot_stats$Player,side="right")
+bot_stats$Player = str_to_title(bot_stats$Player) 
+bot_team$Player = str_trim(bot_stats$Player,side="right")
+bot_team$Player = str_to_title(bot_stats$Player) 
+bot_stats_comp = merge(bot_stats,bot_team,by="Player")
+bot_stats_comp$Win.rate = as.numeric(gsub("[\\%,]","",bot_stats_comp$Win.rate))/100
+bot_stats_comp$KP. = as.numeric(gsub("[\\%,]","",bot_stats_comp$KP.))/100
+bot_stats_comp$FB.Victim = as.numeric(gsub("[\\%,]","",bot_stats_comp$FB.Victim))/100
+bot_stats_comp$FB.. = as.numeric(gsub("[\\%,]","",bot_stats_comp$FB..))/100
+bot_stats_comp$Solo.Kills = as.numeric(replace(bot_stats_comp$Solo.Kills, bot_stats_comp$Solo.Kills == "-", 0))
+
+sup_stats = read.csv("./data//sup_stats.csv")
+sup_team = read.csv("./data//sup_team.csv")
+sup_stats$Player = str_trim(sup_stats$Player,side="right")
+sup_stats$Player = str_to_title(sup_stats$Player) 
+sup_team$Player = str_trim(sup_stats$Player,side="right")
+sup_team$Player = str_to_title(sup_stats$Player) 
+sup_stats_comp = merge(sup_stats,sup_team,by="Player")
+sup_stats_comp$Win.rate = as.numeric(gsub("[\\%,]","",sup_stats_comp$Win.rate))/100
+sup_stats_comp$KP. = as.numeric(gsub("[\\%,]","",sup_stats_comp$KP.))/100
+sup_stats_comp$FB.Victim = as.numeric(gsub("[\\%,]","",sup_stats_comp$FB.Victim))/100
+sup_stats_comp$FB.. = as.numeric(gsub("[\\%,]","",sup_stats_comp$FB..))/100
+sup_stats_comp$Solo.Kills = as.numeric(replace(sup_stats_comp$Solo.Kills, sup_stats_comp$Solo.Kills == "-", 0))
+top_stats_comp %>% select(Player, Team, Win.rate)
+```
+
+
